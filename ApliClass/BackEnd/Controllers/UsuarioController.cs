@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class CategoryController : GenericControllers<Category, CategoryDto>
+public class CategoryController : GenericControllers<Usuario, UsuarioDTO>
 {
     private readonly ILogger<CategoryController> _logger;
 
@@ -19,7 +19,7 @@ public class CategoryController : GenericControllers<Category, CategoryDto>
     #region POST|Create - Used to create a new resource.
 
     [HttpPost]
-    public override IActionResult Post([FromBody] CategoryDto requestDto)
+    public override IActionResult Post([FromBody] UsuarioDTO requestDto)
     {
         _logger.LogInformation($"will look for Entity with of name {nameof(requestDto)} and see if we get it.");
 
@@ -29,14 +29,14 @@ public class CategoryController : GenericControllers<Category, CategoryDto>
             return BadRequest(ModelState);
         }
 
-        Category mappedResult = Mapper.Map<Category>(requestDto);
+        Usuario mappedResult = Mapper.Map<Usuario>(requestDto);
 
         Repository.Insert(mappedResult);
         UnitOfWork.SaveChanges();
 
-        _logger.LogCritical($"The ID of Entity with of name {nameof(requestDto)} is {mappedResult.CategoryId} .");
+        _logger.LogCritical($"The ID of Entity with of name {nameof(requestDto)} is {mappedResult.Id} .");
 
-        return CreatedAtAction(nameof(Get), new { id = mappedResult.CategoryId }, mappedResult);
+        return CreatedAtAction(nameof(Get), new { id = mappedResult.Id }, mappedResult);
     }
 
     #endregion

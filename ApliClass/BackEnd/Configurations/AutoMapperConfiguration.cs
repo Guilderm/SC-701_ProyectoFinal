@@ -6,9 +6,8 @@ namespace BackEnd.Configurations;
 
 public class AutoMapperConfiguration : Profile
 {
-	public AutoMapperConfiguration()
-	{
-		CreateMap<Category, CategoryDto>().ReverseMap();
-		CreateMap<Shipper, ShipperDto>().ReverseMap();
-	}
+    public AutoMapperConfiguration()
+    {
+        CreateMap<Usuario, UsuarioDTO>().ReverseMap();
+    }
 }

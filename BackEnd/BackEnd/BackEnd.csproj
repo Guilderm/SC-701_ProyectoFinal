@@ -6,8 +6,25 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Remove="Helpers\**" />
+		<Content Remove="Helpers\**" />
+		<EmbeddedResource Remove="Helpers\**" />
+		<None Remove="Helpers\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="*" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.*" />
+		<PackageReference Include="Serilog.aspnetcore" Version="6.*" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="*" />
+		<PackageReference Include="Serilog.Sinks.File" Version="*" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.*" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\DAL\DAL.csproj" />
+		<ProjectReference Include="..\Entities\Entities.csproj" />
+	</ItemGroup>
 
 </Project>

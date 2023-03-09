@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Entities;
 
-namespace Entities
+public class TiposdeUsuario
 {
-    public partial class TiposdeUsuario
-    {
-        public int Id { get; set; }
-        public string Tipo { get; set; }
-    }
+    public int Id { get; set; }
+    public string Tipo { get; set; }
 }

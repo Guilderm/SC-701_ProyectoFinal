@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Entities;
 
-namespace Entities
+public class TiposdeEstado
 {
-    public partial class TiposdeEstado
-    {
-        public int Id { get; set; }
-        public string Tipo { get; set; }
-    }
+    public int Id { get; set; }
+    public string Tipo { get; set; }
 }

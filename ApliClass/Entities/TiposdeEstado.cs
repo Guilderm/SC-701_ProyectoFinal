@@ -6,6 +6,6 @@ namespace Entities
     public partial class TiposdeEstado
     {
         public int Id { get; set; }
-        public string? Tipo { get; set; }
+        public string Tipo { get; set; }
     }
 }

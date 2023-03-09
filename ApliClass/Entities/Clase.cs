@@ -13,7 +13,7 @@ namespace Entities
         }
 
         public int Id { get; set; }
-        public string? Nombre { get; set; }
+        public string Nombre { get; set; }
         public int? Profesor { get; set; }
 
         public virtual ICollection<ClasesListasdeEstudiante> ClasesListasdeEstudiantes { get; set; }

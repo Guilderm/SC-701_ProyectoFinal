@@ -13,10 +13,10 @@ namespace Entities
         }
 
         public int Id { get; set; }
-        public string? Nombre { get; set; }
-        public string? _1apellido { get; set; }
-        public string? _2apellido { get; set; }
-        public string? Coreo { get; set; }
+        public string Nombre { get; set; }
+        public string _1apellido { get; set; }
+        public string _2apellido { get; set; }
+        public string Coreo { get; set; }
         public int? TipodeUsuario { get; set; }
 
         public virtual ICollection<UsuariosAsistencia> UsuariosAsistencia { get; set; }

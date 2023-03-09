@@ -1,19 +1,22 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class Clase
+namespace Entities
 {
-    public Clase()
+    public partial class Clase
     {
-        ClasesListasdeEstudiantes = new HashSet<ClasesListasdeEstudiante>();
-        ClasesListasdeLecciones = new HashSet<ClasesListasdeLeccione>();
-        ClasesNota = new HashSet<ClasesNota>();
+        public Clase()
+        {
+            ListasdeEstudiantes = new HashSet<ListasdeEstudiante>();
+            ListasdeLecciones = new HashSet<ListasdeLeccione>();
+        }
+
+        public int Id { get; set; }
+        public string Nombre { get; set; }
+        public int Profesor { get; set; }
+
+        public virtual Usuario ProfesorNavigation { get; set; }
+        public virtual ICollection<ListasdeEstudiante> ListasdeEstudiantes { get; set; }
+        public virtual ICollection<ListasdeLeccione> ListasdeLecciones { get; set; }
     }
-
-    public int Id { get; set; }
-    public string Nombre { get; set; }
-    public int? Profesor { get; set; }
-
-    public virtual ICollection<ClasesListasdeEstudiante> ClasesListasdeEstudiantes { get; set; }
-    public virtual ICollection<ClasesListasdeLeccione> ClasesListasdeLecciones { get; set; }
-    public virtual ICollection<ClasesNota> ClasesNota { get; set; }
 }

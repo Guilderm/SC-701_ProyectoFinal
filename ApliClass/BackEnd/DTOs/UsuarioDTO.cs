@@ -7,5 +7,5 @@ public class UsuarioDTO
     public string PrimerApellido { get; set; }
     public string SegundoApellido { get; set; }
     public string Correo { get; set; }
-    public int? TipoDeUsuario { get; set; }
+    public int TipoDeUsuario { get; set; }
 }

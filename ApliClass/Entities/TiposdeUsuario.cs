@@ -1,7 +1,18 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class TiposdeUsuario
+namespace Entities
 {
-    public int Id { get; set; }
-    public string Tipo { get; set; }
+    public partial class TiposdeUsuario
+    {
+        public TiposdeUsuario()
+        {
+            Usuarios = new HashSet<Usuario>();
+        }
+
+        public int Id { get; set; }
+        public string Tipo { get; set; }
+
+        public virtual ICollection<Usuario> Usuarios { get; set; }
+    }
 }

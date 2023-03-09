@@ -1,7 +1,18 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class TiposdeEstado
+namespace Entities
 {
-    public int Id { get; set; }
-    public string Tipo { get; set; }
+    public partial class TiposdeEstado
+    {
+        public TiposdeEstado()
+        {
+            Asistencia = new HashSet<Asistencia>();
+        }
+
+        public int Id { get; set; }
+        public string Tipo { get; set; }
+
+        public virtual ICollection<Asistencia> Asistencia { get; set; }
+    }
 }

@@ -5,6 +5,7 @@ GO
 USE ApliClassDB;
 GO
 
+
 SET XACT_ABORT ON
 
 BEGIN TRANSACTION QUICKDBD
@@ -12,9 +13,9 @@ BEGIN TRANSACTION QUICKDBD
 CREATE TABLE [usuarios] (
     [ID] int  NOT NULL ,
     [Nombre] varchar  NOT NULL ,
-    [1Apellido] varchar  NOT NULL ,
-    [2Apellido] varchar  NOT NULL ,
-    [coreo] varchar  NOT NULL ,
+    [PrimerApellido] varchar  NOT NULL ,
+    [SegundoApellido] varchar  NOT NULL ,
+    [Correo] varchar  NOT NULL ,
     [TipodeUsuario] int  NOT NULL ,
     CONSTRAINT [PK_usuarios] PRIMARY KEY CLUSTERED (
         [ID] ASC
@@ -23,10 +24,10 @@ CREATE TABLE [usuarios] (
 
 CREATE TABLE [TiposdeUsuarios] (
     [ID] int  NOT NULL ,
-    --Los tipos serian:
-    --Estudiante
-    --Profesor
-    --Administrador
+    -- Los tipos serian:
+    -- Estudiante
+    -- Profesor
+    -- Administrador
     [Tipo] varchar  NOT NULL ,
     CONSTRAINT [PK_TiposdeUsuarios] PRIMARY KEY CLUSTERED (
         [ID] ASC
@@ -74,10 +75,10 @@ CREATE TABLE [Asistencias] (
 CREATE TABLE [TiposdeEstado] (
     [ID] int  NOT NULL ,
     -- Los tipos Estados serian:
-    -- - Presente
-    -- - Ausente
-    -- - Tarde
-    -- - Justificado
+    -- Presente
+    -- Ausente
+    -- Tarde
+    -- Justificado
     [Tipo] varchar  NOT NULL ,
     CONSTRAINT [PK_TiposdeEstado] PRIMARY KEY CLUSTERED (
         [ID] ASC

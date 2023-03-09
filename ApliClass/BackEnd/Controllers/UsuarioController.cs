@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class CategoryController : GenericControllers<Usuario, UsuarioDTO>
+public class UsuarioController : GenericControllers<Usuario, UsuarioDTO>
 {
-    private readonly ILogger<CategoryController> _logger;
+    private readonly ILogger<UsuarioController> _logger;
 
-    public CategoryController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<CategoryController> logger) : base(
+    public UsuarioController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<UsuarioController> logger) : base(
         unitOfWork, mapper)
     {
         _logger = logger;

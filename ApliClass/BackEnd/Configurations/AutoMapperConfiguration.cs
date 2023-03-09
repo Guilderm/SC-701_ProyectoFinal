@@ -9,5 +9,6 @@ public class AutoMapperConfiguration : Profile
     public AutoMapperConfiguration()
     {
         CreateMap<Usuario, UsuarioDTO>().ReverseMap();
+        CreateMap<Asistencia, AsistenciaDTO>().ReverseMap();
     }
 }

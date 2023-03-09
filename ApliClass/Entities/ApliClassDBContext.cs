@@ -37,9 +37,7 @@ namespace Entities
         {
             modelBuilder.Entity<Asistencia>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.HasOne(d => d.EstadoNavigation)
                     .WithMany(p => p.Asistencia)
@@ -62,9 +60,7 @@ namespace Entities
 
             modelBuilder.Entity<Clase>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -80,9 +76,7 @@ namespace Entities
 
             modelBuilder.Entity<ListasdeEstudiante>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.HasOne(d => d.ClaseNavigation)
                     .WithMany(p => p.ListasdeEstudiantes)
@@ -99,9 +93,7 @@ namespace Entities
 
             modelBuilder.Entity<ListasdeLeccione>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Fecha)
                     .IsRequired()
@@ -124,9 +116,7 @@ namespace Entities
             {
                 entity.ToTable("TiposdeEstado");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Tipo)
                     .IsRequired()
@@ -136,9 +126,7 @@ namespace Entities
 
             modelBuilder.Entity<TiposdeUsuario>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Tipo)
                     .IsRequired()

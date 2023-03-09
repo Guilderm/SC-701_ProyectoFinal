@@ -14,7 +14,7 @@ cd "$basePath\$solutionName"
 
 # create the Entity project
 dotnet new classlib -n $EntityName -o $EntityName --framework net6.0
-cd $EntityName
+cd "$basePath\$solutionName\$EntityName"
 dotnet add package Microsoft.EntityFrameworkCore --version 6.*
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 6.*
 dotnet add package Microsoft.EntityFrameworkCore.Tools --version 6.*
@@ -23,7 +23,7 @@ cd ..
 
 # create the DAL project
 dotnet new classlib -n $DALName -o $DALName --framework net6.0
-cd $DALName
+cd "$basePath\$solutionName\$DALName"
 dotnet add reference ../$EntityName/$EntityName.csproj
 cd ..
 

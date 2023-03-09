@@ -1,11 +1,18 @@
-﻿namespace BackEnd.DTOs;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BackEnd.DTOs;
 
 public class UsuarioDTO
 {
-    public int Id { get; set; }
-    public string Nombre { get; set; }
-    public string PrimerApellido { get; set; }
-    public string SegundoApellido { get; set; }
-    public string Correo { get; set; }
-    public int TipodeUsuario { get; set; }
+    [Required] public int Id { get; set; }
+
+    [Required] public string Nombre { get; set; }
+
+    [Required] public string PrimerApellido { get; set; }
+
+    [Required] public string SegundoApellido { get; set; }
+
+    [Required] [EmailAddress] public string Correo { get; set; }
+
+    [Required] public int TipodeUsuario { get; set; }
 }

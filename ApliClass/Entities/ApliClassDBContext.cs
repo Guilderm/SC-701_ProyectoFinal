@@ -68,7 +68,7 @@ namespace Entities
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.ProfesorNavigation)
@@ -110,7 +110,7 @@ namespace Entities
 
                 entity.Property(e => e.Numero)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.ClaseNavigation)
@@ -130,7 +130,7 @@ namespace Entities
 
                 entity.Property(e => e.Tipo)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
@@ -142,7 +142,7 @@ namespace Entities
 
                 entity.Property(e => e.Tipo)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
@@ -150,28 +150,26 @@ namespace Entities
             {
                 entity.ToTable("usuarios");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Correo)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.PrimerApellido)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SegundoApellido)
                     .IsRequired()
-                    .HasMaxLength(1)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.TipodeUsuarioNavigation)

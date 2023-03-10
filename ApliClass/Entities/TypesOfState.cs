@@ -3,19 +3,16 @@ using System.Collections.Generic;
 
 namespace Entities
 {
-    public partial class Lesson
+    public partial class TypesOfState
     {
-        public Lesson()
+        public TypesOfState()
         {
             Attendances = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
-        public int Class { get; set; }
-        public string Number { get; set; }
-        public byte[] Date { get; set; }
+        public string Type { get; set; }
 
-        public virtual Class ClassNavigation { get; set; }
         public virtual ICollection<Attendance> Attendances { get; set; }
     }
 }

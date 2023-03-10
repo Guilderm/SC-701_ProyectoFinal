@@ -7,142 +7,112 @@ GO
 
 CREATE TABLE [users]
 (
-    [ID]              int         NOT NULL,
-    [Nombre]          varchar(50) NOT NULL,
+    [ID]              INT IDENTITY (1,1) PRIMARY KEY,
+    [Name]            varchar(50) NOT NULL,
     [PrimerApellido]  varchar(50) NOT NULL,
     [SegundoApellido] varchar(50) NULL,
-    [Correo]          varchar(50) NOT NULL,
-    [TipodeUsuario]   int         NOT NULL,
-    CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED (
-                                                 [ID] ASC
-        ),
-    CONSTRAINT [UK_users_Correo] UNIQUE (
-                                         [Correo]
-        )
+    [Email]           varchar(50) NOT NULL,
+    [UserType]        INT         NOT NULL,
+    CONSTRAINT [UK_users_Email] UNIQUE ([Email])
 )
 
-CREATE TABLE [UserTypes]
+CREATE TABLE [TypesOfUsers]
 (
     -- The types would be:
     -- Student
     -- Teacher
     -- Administrator
-    [ID]   int         NOT NULL,
-    [Tipo] varchar(50) NOT NULL,
-    CONSTRAINT [PK_UserTypes] PRIMARY KEY CLUSTERED (
-                                                     [ID] ASC
-        ),
-    CONSTRAINT [UK_UserTypes_Tipo] UNIQUE (
-                                           [Tipo]
-        )
+    [ID]   INT IDENTITY (1,1) PRIMARY KEY,
+    [Type] varchar(50) NOT NULL,
+    CONSTRAINT [UQ_TypesOfUsers_Type] UNIQUE ([Type])
 )
 
 CREATE TABLE [Classes]
 (
-    [ID]       int         NOT NULL,
-    [Nombre]   varchar(50) NOT NULL,
-    [Profesor] int         NOT NULL,
-    CONSTRAINT [PK_Classes] PRIMARY KEY CLUSTERED (
-                                                   [ID] ASC
-        )
+    [ID]    INT IDENTITY (1,1) PRIMARY KEY,
+    [Name]  varchar(50) NOT NULL,
+    Teacher int         NOT NULL,
 )
 
 CREATE TABLE [Students]
 (
-    [ID]         int NOT NULL,
-    [Estudiante] int NOT NULL,
-    [Clase]      int NOT NULL,
-    CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED (
-                                                    [ID] ASC
-        )
+    [ID]      INT IDENTITY (1,1) PRIMARY KEY,
+    [Student] int NOT NULL,
+    [Class]   int NOT NULL,
 )
 
 CREATE TABLE [Lessons]
 (
-    [ID]     int         NOT NULL,
-    [Clase]  int         NOT NULL,
-    [Numero] varchar(50) NOT NULL,
-    [Fecha]  timestamp   NOT NULL,
-    CONSTRAINT [PK_Lessons] PRIMARY KEY CLUSTERED (
-                                                   [ID] ASC
-        )
+    [ID]     INT IDENTITY (1,1) PRIMARY KEY,
+    [Class]  int         NOT NULL,
+    [Number] varchar(50) NOT NULL,
+    [Date]   timestamp   NOT NULL,
 )
 
 CREATE TABLE [Attendance]
 (
-    [ID]         int NOT NULL,
-    [Lessons]    int NOT NULL,
-    [Estudiante] int NOT NULL,
-    [Estado]     int NOT NULL,
-    CONSTRAINT [PK_Attendance] PRIMARY KEY CLUSTERED (
-                                                      [ID] ASC
-        )
+    [ID]      INT IDENTITY (1,1) PRIMARY KEY,
+    [Lessons] int NOT NULL,
+    [Student] int NOT NULL,
+    [State]   int NOT NULL,
 )
 
-CREATE TABLE [TiposdeEstado]
+CREATE TABLE [TypesOfStates]
 (
-    -- Los tipos Estados serian:
-    -- Presente
-    -- Ausente
-    -- Tarde
-    -- Justificado
-    [ID]   int         NOT NULL,
-    [Tipo] varchar(50) NOT NULL,
-    CONSTRAINT [PK_TiposdeEstado] PRIMARY KEY CLUSTERED (
-                                                         [ID] ASC
-        ),
-    CONSTRAINT [UK_TiposdeEstado_Tipo] UNIQUE (
-                                               [Tipo]
-        )
+-- The state types would be:
+-- Present
+-- Absent
+-- Late
+-- Justified
+    [ID]   INT IDENTITY (1,1) PRIMARY KEY,
+    [Type] varchar(50) NOT NULL,
+    CONSTRAINT [UQ_TypesOfStates_Type] UNIQUE ([Type])
 )
 
 CREATE TABLE [Grades]
 (
-    [ID]         int         NOT NULL,
+    [ID]         INT IDENTITY (1,1) PRIMARY KEY,
     [Students]   int         NOT NULL,
     [Classes]    int         NOT NULL,
     [Name]       varchar(50) NOT NULL,
     [Grade]      float       NOT NULL,
-    [Persentace] float       NOT NULL,
-    CONSTRAINT [PK_Grades] PRIMARY KEY CLUSTERED (
-                                                  [ID] ASC
-        )
+    [Percentage] float       NOT NULL
 )
 
 ALTER TABLE [users]
-    WITH CHECK ADD CONSTRAINT [FK_users_TipodeUsuario] FOREIGN KEY ([TipodeUsuario])
-        REFERENCES [UserTypes] ([ID])
+    WITH CHECK ADD CONSTRAINT [FK_users_TypesOfUsers] FOREIGN KEY ([UserType])
+        REFERENCES [TypesOfUsers] ([ID])
 
 ALTER TABLE [users]
-    CHECK CONSTRAINT [FK_users_TipodeUsuario]
+    CHECK CONSTRAINT [FK_users_TypesOfUsers]
 
 ALTER TABLE [Classes]
-    WITH CHECK ADD CONSTRAINT [FK_Classes_Profesor] FOREIGN KEY ([Profesor])
+    WITH CHECK ADD CONSTRAINT [FK_Classes_Teacher] FOREIGN KEY ([Teacher])
         REFERENCES [users] ([ID])
 
 ALTER TABLE [Classes]
-    CHECK CONSTRAINT [FK_Classes_Profesor]
+    CHECK CONSTRAINT [FK_Classes_Teacher]
 
 ALTER TABLE [Students]
-    WITH CHECK ADD CONSTRAINT [FK_Students_Estudiante] FOREIGN KEY ([Estudiante])
+    WITH CHECK ADD CONSTRAINT [FK_Students_Student] FOREIGN KEY ([Student])
         REFERENCES [users] ([ID])
 
 ALTER TABLE [Students]
-    CHECK CONSTRAINT [FK_Students_Estudiante]
+    CHECK CONSTRAINT [FK_Students_Student]
 
 ALTER TABLE [Students]
-    WITH CHECK ADD CONSTRAINT [FK_Students_Clase] FOREIGN KEY ([Clase])
+    WITH CHECK ADD CONSTRAINT [FK_Students_Class] FOREIGN KEY ([Class])
         REFERENCES [Classes] ([ID])
 
 ALTER TABLE [Students]
-    CHECK CONSTRAINT [FK_Students_Clase]
+    CHECK CONSTRAINT [FK_Students_Class]
 
 ALTER TABLE [Lessons]
-    WITH CHECK ADD CONSTRAINT [FK_Lessons_Clase] FOREIGN KEY ([Clase])
+    WITH CHECK ADD CONSTRAINT [FK_Lessons_Class] FOREIGN KEY ([Class])
         REFERENCES [Classes] ([ID])
 
 ALTER TABLE [Lessons]
-    CHECK CONSTRAINT [FK_Lessons_Clase]
+    CHECK CONSTRAINT [FK_Lessons_Class]
 
 ALTER TABLE [Attendance]
     WITH CHECK ADD CONSTRAINT [FK_Attendance_Lessons] FOREIGN KEY ([Lessons])
@@ -152,18 +122,18 @@ ALTER TABLE [Attendance]
     CHECK CONSTRAINT [FK_Attendance_Lessons]
 
 ALTER TABLE [Attendance]
-    WITH CHECK ADD CONSTRAINT [FK_Attendance_Estudiante] FOREIGN KEY ([Estudiante])
+    WITH CHECK ADD CONSTRAINT [FK_Attendance_Student] FOREIGN KEY ([Student])
         REFERENCES [users] ([ID])
 
 ALTER TABLE [Attendance]
-    CHECK CONSTRAINT [FK_Attendance_Estudiante]
+    CHECK CONSTRAINT [FK_Attendance_Student]
 
 ALTER TABLE [Attendance]
-    WITH CHECK ADD CONSTRAINT [FK_Attendance_Estado] FOREIGN KEY ([Estado])
-        REFERENCES [TiposdeEstado] ([ID])
+    WITH CHECK ADD CONSTRAINT [FK_Attendance_State] FOREIGN KEY ([State])
+        REFERENCES [TypesOfStates] ([ID])
 
 ALTER TABLE [Attendance]
-    CHECK CONSTRAINT [FK_Attendance_Estado]
+    CHECK CONSTRAINT [FK_Attendance_State]
 
 ALTER TABLE [Grades]
     WITH CHECK ADD CONSTRAINT [FK_Grades_Students] FOREIGN KEY ([Students])
@@ -177,53 +147,66 @@ ALTER TABLE [Grades]
         REFERENCES [Classes] ([ID])
 
 ALTER TABLE [Grades]
-    CHECK CONSTRAINT [FK_Grades_Classes]  
+    CHECK CONSTRAINT [FK_Grades_Classes]
 
 
 USE ApliClassDB;
 
 -- Insert UserTypes
-INSERT INTO UserTypes (ID, Tipo)
-VALUES (1, 'Student'), (2, 'Teacher'), (3, 'Administrator');
+INSERT INTO TypesOfUsers (Type)
+VALUES ('Student'),
+       ('Teacher'),
+       ('Administrator');
 
 -- Insert users
-INSERT INTO users (ID, Nombre, PrimerApellido, SegundoApellido, Correo, TipodeUsuario)
-VALUES (1, 'John', 'Doe', NULL, 'johndoe@student.com', 1),
-(2, 'Jane', 'Smith', NULL, 'janesmith@student.com', 1),
-(3, 'Bob', 'Johnson', NULL, 'bobjohnson@teacher.com', 2),
-(4, 'Sue', 'Anderson', NULL, 'sueanderson@teacher.com', 2),
-(5, 'Tom', 'Wilson', NULL, 'tomwilson@admin.com', 3),
-(6, 'Anna', 'Clark', NULL, 'annaclark@admin.com', 3);
+INSERT INTO users (Name, PrimerApellido, SegundoApellido, Email, UserType)
+VALUES ('John', 'Doe', NULL, 'johndoe@student.com', 1),
+       ('Jane', 'Smith', NULL, 'janesmith@student.com', 1),
+       ('Bob', 'Johnson', NULL, 'bobjohnson@teacher.com', 2),
+       ('Sue', 'Anderson', NULL, 'sueanderson@teacher.com', 2),
+       ('Tom', 'Wilson', NULL, 'tomwilson@admin.com', 3),
+       ('Anna', 'Clark', NULL, 'annaclark@admin.com', 3);
 
 -- Insert Classes
-INSERT INTO Classes (ID, Nombre, Profesor)
-VALUES (1, 'Mathematics', 3), (2, 'Physics', 3), (3, 'Biology', 4);
+INSERT INTO Classes (name, Teacher)
+VALUES ('Mathematics', 3),
+       ('Physics', 3),
+       ('Biology', 4);
 
 -- Insert Students
-INSERT INTO Students (ID, Estudiante, Clase)
-VALUES (1, 1, 1), (2, 1, 2), (3, 2, 1), (4, 2, 2);
+INSERT INTO Students (Student, Class)
+VALUES (1, 1),
+       (1, 2),
+       (2, 1),
+       (2, 2);
 
 -- Insert Lessons
-INSERT INTO Lessons (ID, Clase, Numero, Fecha)
-VALUES (1, 1, 'Lesson 1', DEFAULT),
-(2, 1, 'Lesson 2',  DEFAULT),
-(3, 2, 'Lesson 1', DEFAULT),
-(4, 2, 'Lesson 2', DEFAULT) ;
+INSERT INTO Lessons (Class, Number, Date)
+VALUES (1, 'Lesson 1', DEFAULT),
+       (1, 'Lesson 2', DEFAULT),
+       (2, 'Lesson 1', DEFAULT),
+       (2, 'Lesson 2', DEFAULT);
 
--- Insert TiposdeEstado
-INSERT INTO TiposdeEstado (ID, Tipo)
-VALUES (1, 'Presente'), (2, 'Ausente'), (3, 'Tarde'), (4, 'Justificado');
+-- Insert TypesOfStates
+INSERT INTO TypesOfStates (Type)
+VALUES ('Present'),
+       ('Absent'),
+       ('Late'),
+       ('Justified');
 
 -- Insert Attendance
-INSERT INTO Attendance (ID, Lessons, Estudiante, Estado)
-VALUES (1, 1, 1, 1), (2, 1, 2, 1), (3, 2, 1, 2), (4, 2, 2, 3);
+INSERT INTO Attendance (Lessons, Student, State)
+VALUES (1, 1, 1),
+       (1, 2, 1),
+       (2, 1, 2),
+       (3, 2, 3);
 
 -- Insert Grades
-INSERT INTO Grades (ID, Students, Classes, Name, Grade, Persentace)
-VALUES (1, 1, 1, 'Exam 1', 90.0, 0.4),
-(2, 1, 1, 'Homework 1', 80.0, 0.3),
-(3, 2, 1, 'Exam 1', 85.0, 0.4),
-(4, 2, 1, 'Homework 1', 95.0, 0.3),
-(5, 1, 2, 'Exam 1', 75.0, 0.4),
-(6, 1, 2, 'Homework 1', 90.0, 0.3),
-(7, 2, 2, 'Exam 1', 80.0, 0.4)
+INSERT INTO Grades (Students, Classes, Name, Grade, Percentage)
+VALUES (1, 1, 'Exam 1', 90.0, 0.4),
+       (1, 1, 'Homework 1', 80.0, 0.3),
+       (2, 1, 'Exam 1', 85.0, 0.4),
+       (2, 1, 'Homework 1', 95.0, 0.3),
+       (1, 2, 'Exam 1', 75.0, 0.4),
+       (1, 2, 'Homework 1', 90.0, 0.3),
+       (2, 2, 'Exam 1', 80.0, 0.4)

@@ -7,11 +7,11 @@ namespace Entities
     {
         public int Id { get; set; }
         public int Lessons { get; set; }
-        public int Estudiante { get; set; }
-        public int Estado { get; set; }
+        public int Student { get; set; }
+        public int State { get; set; }
 
-        public virtual TiposdeEstado EstadoNavigation { get; set; }
-        public virtual User EstudianteNavigation { get; set; }
         public virtual Lesson LessonsNavigation { get; set; }
+        public virtual TypesOfState StateNavigation { get; set; }
+        public virtual User StudentNavigation { get; set; }
     }
 }

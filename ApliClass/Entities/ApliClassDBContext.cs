@@ -21,9 +21,9 @@ namespace Entities
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<Student> Students { get; set; }
-        public virtual DbSet<TiposdeEstado> TiposdeEstados { get; set; }
+        public virtual DbSet<TypesOfState> TypesOfStates { get; set; }
+        public virtual DbSet<TypesOfUser> TypesOfUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<UserType> UserTypes { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,52 +40,46 @@ namespace Entities
             {
                 entity.ToTable("Attendance");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
-
-                entity.HasOne(d => d.EstadoNavigation)
-                    .WithMany(p => p.Attendances)
-                    .HasForeignKey(d => d.Estado)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Attendance_Estado");
-
-                entity.HasOne(d => d.EstudianteNavigation)
-                    .WithMany(p => p.Attendances)
-                    .HasForeignKey(d => d.Estudiante)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Attendance_Estudiante");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.HasOne(d => d.LessonsNavigation)
                     .WithMany(p => p.Attendances)
                     .HasForeignKey(d => d.Lessons)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Attendance_Lessons");
+
+                entity.HasOne(d => d.StateNavigation)
+                    .WithMany(p => p.Attendances)
+                    .HasForeignKey(d => d.State)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Attendance_State");
+
+                entity.HasOne(d => d.StudentNavigation)
+                    .WithMany(p => p.Attendances)
+                    .HasForeignKey(d => d.Student)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Attendance_Student");
             });
 
             modelBuilder.Entity<Class>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.ProfesorNavigation)
+                entity.HasOne(d => d.TeacherNavigation)
                     .WithMany(p => p.Classes)
-                    .HasForeignKey(d => d.Profesor)
+                    .HasForeignKey(d => d.Teacher)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Classes_Profesor");
+                    .HasConstraintName("FK_Classes_Teacher");
             });
 
             modelBuilder.Entity<Grade>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Grade1).HasColumnName("Grade");
 
@@ -109,58 +103,65 @@ namespace Entities
 
             modelBuilder.Entity<Lesson>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Fecha)
+                entity.Property(e => e.Date)
                     .IsRequired()
                     .IsRowVersion()
                     .IsConcurrencyToken();
 
-                entity.Property(e => e.Numero)
+                entity.Property(e => e.Number)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.ClaseNavigation)
+                entity.HasOne(d => d.ClassNavigation)
                     .WithMany(p => p.Lessons)
-                    .HasForeignKey(d => d.Clase)
+                    .HasForeignKey(d => d.Class)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Lessons_Clase");
+                    .HasConstraintName("FK_Lessons_Class");
             });
 
             modelBuilder.Entity<Student>(entity =>
             {
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.HasOne(d => d.ClaseNavigation)
-                    .WithMany(p => p.Students)
-                    .HasForeignKey(d => d.Clase)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Students_Clase");
+                entity.Property(e => e.Student1).HasColumnName("Student");
 
-                entity.HasOne(d => d.EstudianteNavigation)
+                entity.HasOne(d => d.ClassNavigation)
                     .WithMany(p => p.Students)
-                    .HasForeignKey(d => d.Estudiante)
+                    .HasForeignKey(d => d.Class)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Students_Estudiante");
+                    .HasConstraintName("FK_Students_Class");
+
+                entity.HasOne(d => d.Student1Navigation)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.Student1)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Students_Student");
             });
 
-            modelBuilder.Entity<TiposdeEstado>(entity =>
+            modelBuilder.Entity<TypesOfState>(entity =>
             {
-                entity.ToTable("TiposdeEstado");
-
-                entity.HasIndex(e => e.Tipo, "UK_TiposdeEstado_Tipo")
+                entity.HasIndex(e => e.Type, "UQ_TypesOfStates_Type")
                     .IsUnique();
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Tipo)
+                entity.Property(e => e.Type)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<TypesOfUser>(entity =>
+            {
+                entity.HasIndex(e => e.Type, "UQ_TypesOfUsers_Type")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.Type)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -170,19 +171,17 @@ namespace Entities
             {
                 entity.ToTable("users");
 
-                entity.HasIndex(e => e.Correo, "UK_users_Correo")
+                entity.HasIndex(e => e.Email, "UK_users_Email")
                     .IsUnique();
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Correo)
+                entity.Property(e => e.Email)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
@@ -196,26 +195,11 @@ namespace Entities
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.TipodeUsuarioNavigation)
+                entity.HasOne(d => d.UserTypeNavigation)
                     .WithMany(p => p.Users)
-                    .HasForeignKey(d => d.TipodeUsuario)
+                    .HasForeignKey(d => d.UserType)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_users_TipodeUsuario");
-            });
-
-            modelBuilder.Entity<UserType>(entity =>
-            {
-                entity.HasIndex(e => e.Tipo, "UK_UserTypes_Tipo")
-                    .IsUnique();
-
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
-
-                entity.Property(e => e.Tipo)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .HasConstraintName("FK_users_TypesOfUsers");
             });
 
             OnModelCreatingPartial(modelBuilder);

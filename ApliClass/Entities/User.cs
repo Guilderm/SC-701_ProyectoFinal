@@ -14,13 +14,13 @@ namespace Entities
         }
 
         public int Id { get; set; }
-        public string Nombre { get; set; }
+        public string Name { get; set; }
         public string PrimerApellido { get; set; }
         public string SegundoApellido { get; set; }
-        public string Correo { get; set; }
-        public int TipodeUsuario { get; set; }
+        public string Email { get; set; }
+        public int UserType { get; set; }
 
-        public virtual UserType TipodeUsuarioNavigation { get; set; }
+        public virtual TypesOfUser UserTypeNavigation { get; set; }
         public virtual ICollection<Attendance> Attendances { get; set; }
         public virtual ICollection<Class> Classes { get; set; }
         public virtual ICollection<Grade> Grades { get; set; }

@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace Entities
 {
-    public partial class TiposdeUsuario
+    public partial class UserType
     {
-        public TiposdeUsuario()
+        public UserType()
         {
-            Usuarios = new HashSet<Usuario>();
+            Users = new HashSet<User>();
         }
 
         public int Id { get; set; }
         public string Tipo { get; set; }
 
-        public virtual ICollection<Usuario> Usuarios { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

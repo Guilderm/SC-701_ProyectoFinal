@@ -5,181 +5,225 @@ GO
 USE ApliClassDB;
 GO
 
-
-
-SET XACT_ABORT ON
-
-BEGIN TRANSACTION QUICKDBD
-
-CREATE TABLE [usuarios] (
-    [ID] INT IDENTITY(1,1) PRIMARY KEY,
-    [Nombre] VARCHAR(50) NOT NULL,
-    [PrimerApellido] VARCHAR(50) NOT NULL,
-    [SegundoApellido] VARCHAR(50) NOT NULL,
-    [Correo] VARCHAR(50) NOT NULL,
-    [TipodeUsuario] int  NOT NULL ,
+CREATE TABLE [users]
+(
+    [ID]              int         NOT NULL,
+    [Nombre]          varchar(50) NOT NULL,
+    [PrimerApellido]  varchar(50) NOT NULL,
+    [SegundoApellido] varchar(50) NULL,
+    [Correo]          varchar(50) NOT NULL,
+    [TipodeUsuario]   int         NOT NULL,
+    CONSTRAINT [PK_users] PRIMARY KEY CLUSTERED (
+                                                 [ID] ASC
+        ),
+    CONSTRAINT [UK_users_Correo] UNIQUE (
+                                         [Correo]
+        )
 )
 
-
-CREATE TABLE [TiposdeUsuarios] (
-    [ID] int  NOT NULL ,
-    -- Los tipos serian:
-    -- Estudiante
-    -- Profesor
-    -- Administrador
-    [Tipo] varchar(50)  NOT NULL ,
-    CONSTRAINT [PK_TiposdeUsuarios] PRIMARY KEY CLUSTERED (
-        [ID] ASC
-    )
+CREATE TABLE [UserTypes]
+(
+    -- The types would be:
+    -- Student
+    -- Teacher
+    -- Administrator
+    [ID]   int         NOT NULL,
+    [Tipo] varchar(50) NOT NULL,
+    CONSTRAINT [PK_UserTypes] PRIMARY KEY CLUSTERED (
+                                                     [ID] ASC
+        ),
+    CONSTRAINT [UK_UserTypes_Tipo] UNIQUE (
+                                           [Tipo]
+        )
 )
 
-CREATE TABLE [Clases] (
-    [ID] int  NOT NULL ,
-    [Nombre] varchar(50)  NOT NULL ,
-    [Profesor] int  NOT NULL ,
-    CONSTRAINT [PK_Clases] PRIMARY KEY CLUSTERED (
-        [ID] ASC
-    )
+CREATE TABLE [Classes]
+(
+    [ID]       int         NOT NULL,
+    [Nombre]   varchar(50) NOT NULL,
+    [Profesor] int         NOT NULL,
+    CONSTRAINT [PK_Classes] PRIMARY KEY CLUSTERED (
+                                                   [ID] ASC
+        )
 )
 
-CREATE TABLE [ListasdeEstudiantes] (
-    [ID] int  NOT NULL ,
-    [Estudiante] int  NOT NULL ,
-    [Clase] int  NOT NULL ,
-    CONSTRAINT [PK_ListasdeEstudiantes] PRIMARY KEY CLUSTERED (
-        [ID] ASC
-    )
+CREATE TABLE [Students]
+(
+    [ID]         int NOT NULL,
+    [Estudiante] int NOT NULL,
+    [Clase]      int NOT NULL,
+    CONSTRAINT [PK_Students] PRIMARY KEY CLUSTERED (
+                                                    [ID] ASC
+        )
 )
 
-CREATE TABLE [ListasdeLecciones] (
-    [ID] int  NOT NULL ,
-    [Clase] int  NOT NULL ,
-    [Numero] varchar(50)  NOT NULL ,
-    [Fecha] timestamp  NOT NULL ,
-    CONSTRAINT [PK_ListasdeLecciones] PRIMARY KEY CLUSTERED (
-        [ID] ASC
-    )
+CREATE TABLE [Lessons]
+(
+    [ID]     int         NOT NULL,
+    [Clase]  int         NOT NULL,
+    [Numero] varchar(50) NOT NULL,
+    [Fecha]  timestamp   NOT NULL,
+    CONSTRAINT [PK_Lessons] PRIMARY KEY CLUSTERED (
+                                                   [ID] ASC
+        )
 )
 
-CREATE TABLE [Asistencias] (
-    [ID] int  NOT NULL ,
-    [Leccion] int  NOT NULL ,
-    [Estudiante] int  NOT NULL ,
-    [Estado] int  NOT NULL ,
-    CONSTRAINT [PK_Asistencias] PRIMARY KEY CLUSTERED (
-        [ID] ASC
-    )
+CREATE TABLE [Attendance]
+(
+    [ID]         int NOT NULL,
+    [Lessons]    int NOT NULL,
+    [Estudiante] int NOT NULL,
+    [Estado]     int NOT NULL,
+    CONSTRAINT [PK_Attendance] PRIMARY KEY CLUSTERED (
+                                                      [ID] ASC
+        )
 )
 
-CREATE TABLE [TiposdeEstado] (
-    [ID] int  NOT NULL ,
+CREATE TABLE [TiposdeEstado]
+(
     -- Los tipos Estados serian:
     -- Presente
     -- Ausente
     -- Tarde
     -- Justificado
-    [Tipo] varchar(50)  NOT NULL ,
+    [ID]   int         NOT NULL,
+    [Tipo] varchar(50) NOT NULL,
     CONSTRAINT [PK_TiposdeEstado] PRIMARY KEY CLUSTERED (
-        [ID] ASC
-    )
+                                                         [ID] ASC
+        ),
+    CONSTRAINT [UK_TiposdeEstado_Tipo] UNIQUE (
+                                               [Tipo]
+        )
 )
 
-ALTER TABLE [usuarios] WITH CHECK ADD CONSTRAINT [FK_usuarios_TipodeUsuario] FOREIGN KEY([TipodeUsuario])
-REFERENCES [TiposdeUsuarios] ([ID])
+CREATE TABLE [Grades]
+(
+    [ID]         int         NOT NULL,
+    [Students]   int         NOT NULL,
+    [Classes]    int         NOT NULL,
+    [Name]       varchar(50) NOT NULL,
+    [Grade]      float       NOT NULL,
+    [Persentace] float       NOT NULL,
+    CONSTRAINT [PK_Grades] PRIMARY KEY CLUSTERED (
+                                                  [ID] ASC
+        )
+)
 
-ALTER TABLE [usuarios] CHECK CONSTRAINT [FK_usuarios_TipodeUsuario]
+ALTER TABLE [users]
+    WITH CHECK ADD CONSTRAINT [FK_users_TipodeUsuario] FOREIGN KEY ([TipodeUsuario])
+        REFERENCES [UserTypes] ([ID])
 
-ALTER TABLE [Clases] WITH CHECK ADD CONSTRAINT [FK_Clases_Profesor] FOREIGN KEY([Profesor])
-REFERENCES [usuarios] ([ID])
+ALTER TABLE [users]
+    CHECK CONSTRAINT [FK_users_TipodeUsuario]
 
-ALTER TABLE [Clases] CHECK CONSTRAINT [FK_Clases_Profesor]
+ALTER TABLE [Classes]
+    WITH CHECK ADD CONSTRAINT [FK_Classes_Profesor] FOREIGN KEY ([Profesor])
+        REFERENCES [users] ([ID])
 
-ALTER TABLE [ListasdeEstudiantes] WITH CHECK ADD CONSTRAINT [FK_ListasdeEstudiantes_Estudiante] FOREIGN KEY([Estudiante])
-REFERENCES [usuarios] ([ID])
+ALTER TABLE [Classes]
+    CHECK CONSTRAINT [FK_Classes_Profesor]
 
-ALTER TABLE [ListasdeEstudiantes] CHECK CONSTRAINT [FK_ListasdeEstudiantes_Estudiante]
+ALTER TABLE [Students]
+    WITH CHECK ADD CONSTRAINT [FK_Students_Estudiante] FOREIGN KEY ([Estudiante])
+        REFERENCES [users] ([ID])
 
-ALTER TABLE [ListasdeEstudiantes] WITH CHECK ADD CONSTRAINT [FK_ListasdeEstudiantes_Clase] FOREIGN KEY([Clase])
-REFERENCES [Clases] ([ID])
+ALTER TABLE [Students]
+    CHECK CONSTRAINT [FK_Students_Estudiante]
 
-ALTER TABLE [ListasdeEstudiantes] CHECK CONSTRAINT [FK_ListasdeEstudiantes_Clase]
+ALTER TABLE [Students]
+    WITH CHECK ADD CONSTRAINT [FK_Students_Clase] FOREIGN KEY ([Clase])
+        REFERENCES [Classes] ([ID])
 
-ALTER TABLE [ListasdeLecciones] WITH CHECK ADD CONSTRAINT [FK_ListasdeLecciones_Clase] FOREIGN KEY([Clase])
-REFERENCES [Clases] ([ID])
+ALTER TABLE [Students]
+    CHECK CONSTRAINT [FK_Students_Clase]
 
-ALTER TABLE [ListasdeLecciones] CHECK CONSTRAINT [FK_ListasdeLecciones_Clase]
+ALTER TABLE [Lessons]
+    WITH CHECK ADD CONSTRAINT [FK_Lessons_Clase] FOREIGN KEY ([Clase])
+        REFERENCES [Classes] ([ID])
 
-ALTER TABLE [Asistencias] WITH CHECK ADD CONSTRAINT [FK_Asistencias_Leccion] FOREIGN KEY([Leccion])
-REFERENCES [ListasdeLecciones] ([ID])
+ALTER TABLE [Lessons]
+    CHECK CONSTRAINT [FK_Lessons_Clase]
 
-ALTER TABLE [Asistencias] CHECK CONSTRAINT [FK_Asistencias_Leccion]
+ALTER TABLE [Attendance]
+    WITH CHECK ADD CONSTRAINT [FK_Attendance_Lessons] FOREIGN KEY ([Lessons])
+        REFERENCES [Lessons] ([ID])
 
-ALTER TABLE [Asistencias] WITH CHECK ADD CONSTRAINT [FK_Asistencias_Estudiante] FOREIGN KEY([Estudiante])
-REFERENCES [usuarios] ([ID])
+ALTER TABLE [Attendance]
+    CHECK CONSTRAINT [FK_Attendance_Lessons]
 
-ALTER TABLE [Asistencias] CHECK CONSTRAINT [FK_Asistencias_Estudiante]
+ALTER TABLE [Attendance]
+    WITH CHECK ADD CONSTRAINT [FK_Attendance_Estudiante] FOREIGN KEY ([Estudiante])
+        REFERENCES [users] ([ID])
 
-ALTER TABLE [Asistencias] WITH CHECK ADD CONSTRAINT [FK_Asistencias_Estado] FOREIGN KEY([Estado])
-REFERENCES [TiposdeEstado] ([ID])
+ALTER TABLE [Attendance]
+    CHECK CONSTRAINT [FK_Attendance_Estudiante]
 
-ALTER TABLE [Asistencias] CHECK CONSTRAINT [FK_Asistencias_Estado]
+ALTER TABLE [Attendance]
+    WITH CHECK ADD CONSTRAINT [FK_Attendance_Estado] FOREIGN KEY ([Estado])
+        REFERENCES [TiposdeEstado] ([ID])
 
-COMMIT TRANSACTION QUICKDBD
+ALTER TABLE [Attendance]
+    CHECK CONSTRAINT [FK_Attendance_Estado]
 
+ALTER TABLE [Grades]
+    WITH CHECK ADD CONSTRAINT [FK_Grades_Students] FOREIGN KEY ([Students])
+        REFERENCES [users] ([ID])
 
+ALTER TABLE [Grades]
+    CHECK CONSTRAINT [FK_Grades_Students]
 
+ALTER TABLE [Grades]
+    WITH CHECK ADD CONSTRAINT [FK_Grades_Classes] FOREIGN KEY ([Classes])
+        REFERENCES [Classes] ([ID])
 
-
-
+ALTER TABLE [Grades]
+    CHECK CONSTRAINT [FK_Grades_Classes]  
 
 
 USE ApliClassDB;
 
--- Insert demo entries into [TiposdeUsuarios] table
-INSERT INTO [TiposdeUsuarios] ([ID], [Tipo])
-VALUES (1, 'Estudiante'), (2, 'Profesor'), (3, 'Administrador'), (4, 'Asistente'), (5, 'Invitado');
-GO
+-- Insert UserTypes
+INSERT INTO UserTypes (ID, Tipo)
+VALUES (1, 'Student'), (2, 'Teacher'), (3, 'Administrator');
 
--- Insert demo entries into [usuarios] table
-INSERT INTO [usuarios] ([Nombre], [PrimerApellido], [SegundoApellido], [Correo], [TipodeUsuario])
-VALUES ('John', 'Doe', 'Smith', 'johndoe@mail.com', 1),
-('Jane', 'Doe', 'Johnson', 'janedoe@mail.com', 1),
-('Robert', 'Johnson', 'Taylor', 'robertjohnson@mail.com', 2),
-('Sarah', 'Connor', 'Davis', 'sarahconnor@mail.com', 2),
-('Admin', 'Admin', 'Admin', 'admin@mail.com', 3);
-GO
+-- Insert users
+INSERT INTO users (ID, Nombre, PrimerApellido, SegundoApellido, Correo, TipodeUsuario)
+VALUES (1, 'John', 'Doe', NULL, 'johndoe@student.com', 1),
+(2, 'Jane', 'Smith', NULL, 'janesmith@student.com', 1),
+(3, 'Bob', 'Johnson', NULL, 'bobjohnson@teacher.com', 2),
+(4, 'Sue', 'Anderson', NULL, 'sueanderson@teacher.com', 2),
+(5, 'Tom', 'Wilson', NULL, 'tomwilson@admin.com', 3),
+(6, 'Anna', 'Clark', NULL, 'annaclark@admin.com', 3);
 
--- Insert demo entries into [Clases] table
-INSERT INTO [Clases] ([ID], [Nombre], [Profesor])
-VALUES (1, 'Mathematics', 3), (2, 'English', 4), (3, 'History', 3), (4, 'Biology', 4), (5, 'Chemistry', 3);
+-- Insert Classes
+INSERT INTO Classes (ID, Nombre, Profesor)
+VALUES (1, 'Mathematics', 3), (2, 'Physics', 3), (3, 'Biology', 4);
 
--- Insert demo entries into [ListasdeEstudiantes] table
-INSERT INTO [ListasdeEstudiantes] ([ID], [Estudiante], [Clase])
-VALUES (1, 1, 1), (2, 2, 1), (3, 3, 2), (4, 4, 2), (5, 5, 3);
+-- Insert Students
+INSERT INTO Students (ID, Estudiante, Clase)
+VALUES (1, 1, 1), (2, 1, 2), (3, 2, 1), (4, 2, 2);
 
--- Insert demo entries into [ListasdeLecciones] table
-INSERT INTO [ListasdeLecciones] ([ID], [Clase], [Numero], [Fecha])
+-- Insert Lessons
+INSERT INTO Lessons (ID, Clase, Numero, Fecha)
 VALUES (1, 1, 'Lesson 1', DEFAULT),
-(2, 1, 'Lesson 2', DEFAULT),
+(2, 1, 'Lesson 2',  DEFAULT),
 (3, 2, 'Lesson 1', DEFAULT),
-(4, 2, 'Lesson 2', DEFAULT),
-(5, 3, 'Lesson 1', DEFAULT);
+(4, 2, 'Lesson 2', DEFAULT) ;
 
--- Insert demo entries into [TiposdeEstado] table
-INSERT INTO [TiposdeEstado] ([ID], [Tipo])
-VALUES (1, 'Presente'), (2, 'Ausente'), (3, 'Tarde'), (4, 'Justificado'), (5, 'Sin Registrar');
+-- Insert TiposdeEstado
+INSERT INTO TiposdeEstado (ID, Tipo)
+VALUES (1, 'Presente'), (2, 'Ausente'), (3, 'Tarde'), (4, 'Justificado');
 
--- Insert demo entries into [Asistencias] table
-INSERT INTO [Asistencias] ([ID], [Leccion], [Estudiante], [Estado])
-VALUES (1, 1, 1, 1), (2, 1, 2, 2), (3, 2, 1, 3), (4, 2, 2, 1), (5, 3, 3, 4);
-go
+-- Insert Attendance
+INSERT INTO Attendance (ID, Lessons, Estudiante, Estado)
+VALUES (1, 1, 1, 1), (2, 1, 2, 1), (3, 2, 1, 2), (4, 2, 2, 3);
 
-
--- Insert demo entries into [usuarios] table
-INSERT INTO [usuarios] ([ID], [Nombre], [PrimerApellido], [SegundoApellido], [Correo], [TipodeUsuario])
-VALUES (11, 'John', 'Doe', 'Smith', 'johndoe@mail.com', 1),
-(12, 'Jane', 'Doe', 'Johnson', 'janedoe@mail.com', 1),
-(13, 'Robert', 'Johnson', 'Taylor', 'robertjohnson@mail.com', 2),
-(14, 'Sarah', 'Connor', 'Davis', 'sarahconnor@mail.com', 2),
-(15, 'Admin', 'Admin', 'Admin', 'admin@mail.com', 3);
-GO
+-- Insert Grades
+INSERT INTO Grades (ID, Students, Classes, Name, Grade, Persentace)
+VALUES (1, 1, 1, 'Exam 1', 90.0, 0.4),
+(2, 1, 1, 'Homework 1', 80.0, 0.3),
+(3, 2, 1, 'Exam 1', 85.0, 0.4),
+(4, 2, 1, 'Homework 1', 95.0, 0.3),
+(5, 1, 2, 'Exam 1', 75.0, 0.4),
+(6, 1, 2, 'Homework 1', 90.0, 0.3),
+(7, 2, 2, 'Exam 1', 80.0, 0.4)

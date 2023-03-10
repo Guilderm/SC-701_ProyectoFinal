@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace Entities
 {
-    public partial class ListasdeLeccione
+    public partial class Lesson
     {
-        public ListasdeLeccione()
+        public Lesson()
         {
-            Asistencia = new HashSet<Asistencia>();
+            Attendances = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
@@ -15,7 +15,7 @@ namespace Entities
         public string Numero { get; set; }
         public byte[] Fecha { get; set; }
 
-        public virtual Clase ClaseNavigation { get; set; }
-        public virtual ICollection<Asistencia> Asistencia { get; set; }
+        public virtual Class ClaseNavigation { get; set; }
+        public virtual ICollection<Attendance> Attendances { get; set; }
     }
 }

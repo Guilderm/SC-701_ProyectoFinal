@@ -7,12 +7,12 @@ namespace Entities
     {
         public TiposdeEstado()
         {
-            Asistencia = new HashSet<Asistencia>();
+            Attendances = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
         public string Tipo { get; set; }
 
-        public virtual ICollection<Asistencia> Asistencia { get; set; }
+        public virtual ICollection<Attendance> Attendances { get; set; }
     }
 }

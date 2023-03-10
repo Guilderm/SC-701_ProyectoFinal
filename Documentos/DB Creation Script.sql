@@ -160,12 +160,12 @@ VALUES ('Student'),
 
 -- Insert users
 INSERT INTO users (Name, PrimerApellido, SegundoApellido, Email, UserType)
-VALUES ('John', 'Doe', NULL, 'johndoe@student.com', 1),
-       ('Jane', 'Smith', NULL, 'janesmith@student.com', 1),
-       ('Bob', 'Johnson', NULL, 'bobjohnson@teacher.com', 2),
-       ('Sue', 'Anderson', NULL, 'sueanderson@teacher.com', 2),
-       ('Tom', 'Wilson', NULL, 'tomwilson@admin.com', 3),
-       ('Anna', 'Clark', NULL, 'annaclark@admin.com', 3);
+VALUES ('John', 'Doe', 'Smith', 'johndoe@student.com', 1),
+('Jane', 'Smith', 'Johnson', 'janesmith@student.com', 1),
+('Bob', 'Johnson', NULL, 'bobjohnson@teacher.com', 2),
+('Sue', 'Anderson', 'Steven', 'sueanderson@teacher.com', 2),
+('Tom', 'Wilson', 'Clark', 'tomwilson@admin.com', 3),
+('Anna', 'Clark', 'Mcklaen', 'annaclark@admin.com', 3);
 
 -- Insert Classes
 INSERT INTO Classes (name, Teacher)

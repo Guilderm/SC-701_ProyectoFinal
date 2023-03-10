@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class UsuarioController : GenericControllers<Usuario, UsuarioDTO>
+public class UserController : GenericControllers<User, UserDTO>
 {
-    private readonly ILogger<UsuarioController> _logger;
+    private readonly ILogger<UserController> _logger;
 
-    public UsuarioController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<UsuarioController> logger) : base(
+    public UserController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<UserController> logger) : base(
         unitOfWork, mapper)
     {
         _logger = logger;
@@ -19,7 +19,7 @@ public class UsuarioController : GenericControllers<Usuario, UsuarioDTO>
     #region POST|Create - Used to create a new resource.
 
     [HttpPost]
-    public override IActionResult Post([FromBody] UsuarioDTO requestDto)
+    public override IActionResult Post([FromBody] UserDTO requestDto)
     {
         _logger.LogInformation($"will look for Entity with of name {nameof(requestDto)} and see if we get it.");
 
@@ -29,7 +29,7 @@ public class UsuarioController : GenericControllers<Usuario, UsuarioDTO>
             return BadRequest(ModelState);
         }
 
-        Usuario mappedResult = Mapper.Map<Usuario>(requestDto);
+        User mappedResult = Mapper.Map<User>(requestDto);
 
         Repository.Insert(mappedResult);
         UnitOfWork.SaveChanges();

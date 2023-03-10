@@ -8,7 +8,7 @@ public class AutoMapperConfiguration : Profile
 {
     public AutoMapperConfiguration()
     {
-        CreateMap<User, UsuarioDTO>().ReverseMap();
+        CreateMap<User, UserDTO>().ReverseMap();
         CreateMap<Attendance, AsistenciaDTO>().ReverseMap();
     }
 }

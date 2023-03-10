@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class AsistenciaController : GenericControllers<Asistencia, AsistenciaDTO>
+public class AsistenciaController : GenericControllers<Attendance, AsistenciaDTO>
 {
     private readonly ILogger<AsistenciaController> _logger;
 
@@ -29,7 +29,7 @@ public class AsistenciaController : GenericControllers<Asistencia, AsistenciaDTO
             return BadRequest(ModelState);
         }
 
-        Asistencia mappedResult = Mapper.Map<Asistencia>(requestDto);
+        Attendance mappedResult = Mapper.Map<Attendance>(requestDto);
 
         Repository.Insert(mappedResult);
         UnitOfWork.SaveChanges();

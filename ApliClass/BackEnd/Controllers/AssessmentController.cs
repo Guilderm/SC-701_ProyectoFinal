@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class GradeController : GenericControllers<Grade, GradeDTO>
+public class AssessmentController : GenericControllers<Assessment, AssessmentDTO>
 {
-    private readonly ILogger<GradeController> _logger;
+    private readonly ILogger<AssessmentController> _logger;
 
-    public GradeController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<GradeController> logger) : base(
+    public AssessmentController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<AssessmentController> logger) : base(
         unitOfWork, mapper)
     {
         _logger = logger;
@@ -19,7 +19,7 @@ public class GradeController : GenericControllers<Grade, GradeDTO>
     #region POST|Create - Used to create a new resource.
 
     [HttpPost]
-    public override IActionResult Post([FromBody] GradeDTO requestDto)
+    public override IActionResult Post([FromBody] AssessmentDTO requestDto)
     {
         _logger.LogInformation($"will look for Entity with of name {nameof(requestDto)} and see if we get it.");
 
@@ -29,7 +29,7 @@ public class GradeController : GenericControllers<Grade, GradeDTO>
             return BadRequest(ModelState);
         }
 
-        Grade mappedResult = Mapper.Map<Grade>(requestDto);
+        Assessment mappedResult = Mapper.Map<Assessment>(requestDto);
 
         Repository.Insert(mappedResult);
         UnitOfWork.SaveChanges();

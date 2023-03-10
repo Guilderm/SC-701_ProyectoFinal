@@ -7,9 +7,9 @@ namespace Entities
     {
         public User()
         {
+            Assessments = new HashSet<Assessment>();
             Attendances = new HashSet<Attendance>();
             Classes = new HashSet<Class>();
-            Grades = new HashSet<Grade>();
             Students = new HashSet<Student>();
         }
 
@@ -21,9 +21,9 @@ namespace Entities
         public int UserType { get; set; }
 
         public virtual TypesOfUser UserTypeNavigation { get; set; }
+        public virtual ICollection<Assessment> Assessments { get; set; }
         public virtual ICollection<Attendance> Attendances { get; set; }
         public virtual ICollection<Class> Classes { get; set; }
-        public virtual ICollection<Grade> Grades { get; set; }
         public virtual ICollection<Student> Students { get; set; }
     }
 }

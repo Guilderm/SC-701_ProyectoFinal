@@ -16,10 +16,10 @@ namespace Entities
         {
         }
 
+        public virtual DbSet<Assessment> Assessments { get; set; }
         public virtual DbSet<Attendance> Attendances { get; set; }
         public virtual DbSet<AttendanceState> AttendanceStates { get; set; }
         public virtual DbSet<Class> Classes { get; set; }
-        public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<TypesOfUser> TypesOfUsers { get; set; }
@@ -36,6 +36,32 @@ namespace Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Assessment>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.ClassId).HasColumnName("ClassID");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.StudentId).HasColumnName("StudentID");
+
+                entity.HasOne(d => d.Class)
+                    .WithMany(p => p.Assessments)
+                    .HasForeignKey(d => d.ClassId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Assessments_Classes");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.Assessments)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Assessments_StudentIDs");
+            });
+
             modelBuilder.Entity<Attendance>(entity =>
             {
                 entity.ToTable("Attendance");
@@ -96,34 +122,6 @@ namespace Entities
                     .HasForeignKey(d => d.TeacherId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Classes_TeacherID");
-            });
-
-            modelBuilder.Entity<Grade>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.ClassId).HasColumnName("ClassID");
-
-                entity.Property(e => e.Grade1).HasColumnName("Grade");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.StudentId).HasColumnName("StudentID");
-
-                entity.HasOne(d => d.Class)
-                    .WithMany(p => p.Grades)
-                    .HasForeignKey(d => d.ClassId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Grades_Classes");
-
-                entity.HasOne(d => d.Student)
-                    .WithMany(p => p.Grades)
-                    .HasForeignKey(d => d.StudentId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Grades_StudentIDs");
             });
 
             modelBuilder.Entity<Lesson>(entity =>

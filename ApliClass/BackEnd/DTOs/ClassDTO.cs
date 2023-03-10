@@ -14,7 +14,7 @@ public class ClassDTO
 
     public UserDTO TeacherNavigation { get; set; }
 
-    public ICollection<GradeDTO> Grades { get; set; }
+    public ICollection<AssessmentDTO> Grades { get; set; }
 
     public ICollection<LessonDTO> Lessons { get; set; }
 

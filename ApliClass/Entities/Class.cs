@@ -7,7 +7,7 @@ namespace Entities
     {
         public Class()
         {
-            Grades = new HashSet<Grade>();
+            Assessments = new HashSet<Assessment>();
             Lessons = new HashSet<Lesson>();
             Students = new HashSet<Student>();
         }
@@ -17,7 +17,7 @@ namespace Entities
         public int TeacherId { get; set; }
 
         public virtual User Teacher { get; set; }
-        public virtual ICollection<Grade> Grades { get; set; }
+        public virtual ICollection<Assessment> Assessments { get; set; }
         public virtual ICollection<Lesson> Lessons { get; set; }
         public virtual ICollection<Student> Students { get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace BackEnd.DTOs;
 
-public class GradeDTO
+public class AssessmentDTO
 {
     public int Id { get; set; }
 

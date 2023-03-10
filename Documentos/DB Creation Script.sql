@@ -69,7 +69,7 @@ CREATE TABLE [AttendanceStates]
     CONSTRAINT [UQ_AttendanceStates_State] UNIQUE ([State])
 )
 
-CREATE TABLE [Grades]
+CREATE TABLE [Assessments]
 (
     [ID]         INT IDENTITY (1,1) PRIMARY KEY,
     [StudentID]  int         NOT NULL,
@@ -135,19 +135,19 @@ ALTER TABLE [Attendance]
 ALTER TABLE [Attendance]
     CHECK CONSTRAINT [FK_Attendance_State]
 
-ALTER TABLE [Grades]
-    WITH CHECK ADD CONSTRAINT [FK_Grades_StudentIDs] FOREIGN KEY ([StudentID])
+ALTER TABLE [Assessments]
+    WITH CHECK ADD CONSTRAINT [FK_Assessments_StudentIDs] FOREIGN KEY ([StudentID])
         REFERENCES [users] ([ID])
 
-ALTER TABLE [Grades]
-    CHECK CONSTRAINT [FK_Grades_StudentIDs]
+ALTER TABLE [Assessments]
+    CHECK CONSTRAINT [FK_Assessments_StudentIDs]
 
-ALTER TABLE [Grades]
-    WITH CHECK ADD CONSTRAINT [FK_Grades_Classes] FOREIGN KEY ([ClassID])
+ALTER TABLE [Assessments]
+    WITH CHECK ADD CONSTRAINT [FK_Assessments_Classes] FOREIGN KEY ([ClassID])
         REFERENCES [Classes] ([ID])
 
-ALTER TABLE [Grades]
-    CHECK CONSTRAINT [FK_Grades_Classes]
+ALTER TABLE [Assessments]
+    CHECK CONSTRAINT [FK_Assessments_Classes]
 
 
 USE ApliClassDB;
@@ -202,11 +202,11 @@ VALUES (1, 1, 1),
        (3, 2, 3);
 
 -- Insert Grades
-INSERT INTO Grades (StudentID, ClassID, Name, Grade, Percentage)
+INSERT INTO Assessments (StudentID, ClassID, Name, Grade, Percentage)
 VALUES (1, 1, 'Exam 1', 90.0, 0.4),
        (1, 1, 'Homework 1', 80.0, 0.3),
        (2, 1, 'Exam 1', 85.0, 0.4),
        (2, 1, 'Homework 1', 95.0, 0.3),
        (1, 2, 'Exam 1', 75.0, 0.4),
        (1, 2, 'Homework 1', 90.0, 0.3),
-       (2, 2, 'Exam 1', 80.0, 0.4)
+       (2, 2, 'Exam 1', 80.0, 0.4);

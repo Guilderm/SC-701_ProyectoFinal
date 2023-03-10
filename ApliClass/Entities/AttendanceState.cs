@@ -1,14 +1,18 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class AttendanceState
+namespace Entities
 {
-    public AttendanceState()
+    public partial class AttendanceState
     {
-        Attendances = new HashSet<Attendance>();
+        public AttendanceState()
+        {
+            Attendances = new HashSet<Attendance>();
+        }
+
+        public int Id { get; set; }
+        public string State { get; set; }
+
+        public virtual ICollection<Attendance> Attendances { get; set; }
     }
-
-    public int Id { get; set; }
-    public string State { get; set; }
-
-    public virtual ICollection<Attendance> Attendances { get; set; }
 }

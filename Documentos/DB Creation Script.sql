@@ -24,7 +24,7 @@ CREATE TABLE [TypesOfUsers]
     -- Administrator
     [ID]   INT IDENTITY (1,1) PRIMARY KEY,
     [Type] varchar(50) NOT NULL,
-    CONSTRAINT [UQ_TypesOfUsers_Type] UNIQUE ([Type] )
+    CONSTRAINT [UQ_TypesOfUsers_Type] UNIQUE ([Type])
 )
 
 CREATE TABLE [Classes]
@@ -38,23 +38,23 @@ CREATE TABLE [Students]
 (
     [ID]        INT IDENTITY (1,1) PRIMARY KEY,
     [StudentID] int NOT NULL,
-    [ClassID]     int NOT NULL,
+    [ClassID]   int NOT NULL,
 )
 
 CREATE TABLE [Lessons]
 (
-    [ID]     INT IDENTITY (1,1) PRIMARY KEY,
-    [ClassID]  int         NOT NULL,
-    [Name] varchar(50)  NULL,
-    [Date]   timestamp   NOT NULL,
+    [ID]      INT IDENTITY (1,1) PRIMARY KEY,
+    [ClassID] int         NOT NULL,
+    [Name]    varchar(50) NULL,
+    [Date]    timestamp   NOT NULL,
 )
 
 CREATE TABLE [Attendance]
 (
     [ID]        INT IDENTITY (1,1) PRIMARY KEY,
-    [LessonID]    int NOT NULL,
+    [LessonID]  int NOT NULL,
     [StudentID] int NOT NULL,
-    [StateID]     int NOT NULL,
+    [StateID]   int NOT NULL,
 )
 
 CREATE TABLE [AttendanceStates]
@@ -64,9 +64,9 @@ CREATE TABLE [AttendanceStates]
 -- Absent
 -- Late
 -- Justified
-    [ID]   INT IDENTITY (1,1) PRIMARY KEY,
+    [ID]    INT IDENTITY (1,1) PRIMARY KEY,
     [State] varchar(50) NOT NULL,
-    CONSTRAINT [UQ_AttendanceStates_State] UNIQUE ([State] )
+    CONSTRAINT [UQ_AttendanceStates_State] UNIQUE ([State])
 )
 
 CREATE TABLE [Grades]

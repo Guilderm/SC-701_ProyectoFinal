@@ -52,7 +52,7 @@ CREATE TABLE [Lessons]
 CREATE TABLE [Attendance]
 (
     [ID]      INT IDENTITY (1,1) PRIMARY KEY,
-    [Lessons] int NOT NULL,
+    [Lesson] int NOT NULL,
     [Student] int NOT NULL,
     [State]   int NOT NULL,
 )
@@ -115,7 +115,7 @@ ALTER TABLE [Lessons]
     CHECK CONSTRAINT [FK_Lessons_Class]
 
 ALTER TABLE [Attendance]
-    WITH CHECK ADD CONSTRAINT [FK_Attendance_Lessons] FOREIGN KEY ([Lessons])
+    WITH CHECK ADD CONSTRAINT [FK_Attendance_Lessons] FOREIGN KEY ([Lesson])
         REFERENCES [Lessons] ([ID])
 
 ALTER TABLE [Attendance]
@@ -195,7 +195,7 @@ VALUES ('Present'),
        ('Justified');
 
 -- Insert Attendance
-INSERT INTO Attendance (Lessons, Student, State)
+INSERT INTO Attendance (Lesson, Student, State)
 VALUES (1, 1, 1),
        (1, 2, 1),
        (2, 1, 2),

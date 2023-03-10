@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BackEnd.Controllers;
 
-public class AsistenciaController : GenericControllers<Attendance, AsistenciaDTO>
+public class AttendanceController : GenericControllers<Attendance, AttendanceDTO>
 {
-    private readonly ILogger<AsistenciaController> _logger;
+    private readonly ILogger<AttendanceController> _logger;
 
-    public AsistenciaController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<AsistenciaController> logger) : base(
+    public AttendanceController(IUnitOfWork unitOfWork, IMapper mapper, ILogger<AttendanceController> logger) : base(
         unitOfWork, mapper)
     {
         _logger = logger;
@@ -19,7 +19,7 @@ public class AsistenciaController : GenericControllers<Attendance, AsistenciaDTO
     #region POST|Create - Used to create a new resource.
 
     [HttpPost]
-    public override IActionResult Post([FromBody] AsistenciaDTO requestDto)
+    public override IActionResult Post([FromBody] AttendanceDTO requestDto)
     {
         _logger.LogInformation($"will look for Entity with of name {nameof(requestDto)} and see if we get it.");
 

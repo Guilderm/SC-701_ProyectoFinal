@@ -6,11 +6,11 @@ public class ClassDTO
 {
     public int Id { get; set; }
 
-    [Required(ErrorMessage = "The Name field is required")]
+    [Required(ErrorMessage = "The Name is required")]
     public string Name { get; set; }
 
-    [Required(ErrorMessage = "The Teacher field is required")]
-    public int Teacher { get; set; }
+    [Required(ErrorMessage = "The Teacher ID is required")]
+    public int TeacherId { get; set; }
 
     public UserDTO TeacherNavigation { get; set; }
 

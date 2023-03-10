@@ -1,14 +1,18 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class TypesOfUser
+namespace Entities
 {
-    public TypesOfUser()
+    public partial class TypesOfUser
     {
-        Users = new HashSet<User>();
+        public TypesOfUser()
+        {
+            Users = new HashSet<User>();
+        }
+
+        public int Id { get; set; }
+        public string Type { get; set; }
+
+        public virtual ICollection<User> Users { get; set; }
     }
-
-    public int Id { get; set; }
-    public string Type { get; set; }
-
-    public virtual ICollection<User> Users { get; set; }
 }

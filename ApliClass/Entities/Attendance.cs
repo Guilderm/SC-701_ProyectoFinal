@@ -1,13 +1,17 @@
-﻿namespace Entities;
+﻿using System;
+using System.Collections.Generic;
 
-public class Attendance
+namespace Entities
 {
-    public int Id { get; set; }
-    public int Lessons { get; set; }
-    public int Student { get; set; }
-    public int State { get; set; }
+    public partial class Attendance
+    {
+        public int Id { get; set; }
+        public int LessonId { get; set; }
+        public int StudentId { get; set; }
+        public int StateId { get; set; }
 
-    public virtual Lesson LessonsNavigation { get; set; }
-    public virtual TypesOfState StateNavigation { get; set; }
-    public virtual User StudentNavigation { get; set; }
+        public virtual Lesson Lesson { get; set; }
+        public virtual AttendanceState State { get; set; }
+        public virtual User Student { get; set; }
+    }
 }

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 
 namespace Entities
 {
-    public partial class TiposdeEstado
+    public partial class AttendanceState
     {
-        public TiposdeEstado()
+        public AttendanceState()
         {
             Attendances = new HashSet<Attendance>();
         }
 
         public int Id { get; set; }
-        public string Tipo { get; set; }
+        public string State { get; set; }
 
         public virtual ICollection<Attendance> Attendances { get; set; }
     }

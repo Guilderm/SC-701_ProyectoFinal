@@ -21,7 +21,7 @@ namespace Entities
         public virtual DbSet<Class> Classes { get; set; }
         public virtual DbSet<Grade> Grades { get; set; }
         public virtual DbSet<Lesson> Lessons { get; set; }
-        public virtual DbSet<StudentId> StudentIds { get; set; }
+        public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<TypesOfUser> TypesOfUsers { get; set; }
         public virtual DbSet<User> Users { get; set; }
 
@@ -130,42 +130,43 @@ namespace Entities
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
+                entity.Property(e => e.ClassId).HasColumnName("ClassID");
+
                 entity.Property(e => e.Date)
                     .IsRequired()
                     .IsRowVersion()
                     .IsConcurrencyToken();
 
-                entity.Property(e => e.Number)
-                    .IsRequired()
+                entity.Property(e => e.Name)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.HasOne(d => d.ClassNavigation)
+                entity.HasOne(d => d.Class)
                     .WithMany(p => p.Lessons)
-                    .HasForeignKey(d => d.Class)
+                    .HasForeignKey(d => d.ClassId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Lessons_Class");
             });
 
-            modelBuilder.Entity<StudentId>(entity =>
+            modelBuilder.Entity<Student>(entity =>
             {
-                entity.ToTable("StudentIDs");
-
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.StudentId1).HasColumnName("StudentID");
+                entity.Property(e => e.ClassId).HasColumnName("ClassID");
 
-                entity.HasOne(d => d.ClassNavigation)
-                    .WithMany(p => p.StudentIds)
-                    .HasForeignKey(d => d.Class)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_StudentIDs_Class");
+                entity.Property(e => e.StudentId).HasColumnName("StudentID");
 
-                entity.HasOne(d => d.StudentId1Navigation)
-                    .WithMany(p => p.StudentIds)
-                    .HasForeignKey(d => d.StudentId1)
+                entity.HasOne(d => d.Class)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.ClassId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_StudentIDs_StudentID");
+                    .HasConstraintName("FK_Students_Class");
+
+                entity.HasOne(d => d.StudentNavigation)
+                    .WithMany(p => p.Students)
+                    .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_StudentID_StudentID");
             });
 
             modelBuilder.Entity<TypesOfUser>(entity =>

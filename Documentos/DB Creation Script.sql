@@ -34,18 +34,18 @@ CREATE TABLE [Classes]
     TeacherID int         NOT NULL,
 )
 
-CREATE TABLE [StudentIDs]
+CREATE TABLE [Students]
 (
     [ID]        INT IDENTITY (1,1) PRIMARY KEY,
     [StudentID] int NOT NULL,
-    [Class]     int NOT NULL,
+    [ClassID]     int NOT NULL,
 )
 
 CREATE TABLE [Lessons]
 (
     [ID]     INT IDENTITY (1,1) PRIMARY KEY,
-    [Class]  int         NOT NULL,
-    [Number] varchar(50) NOT NULL,
+    [ClassID]  int         NOT NULL,
+    [Name] varchar(50)  NULL,
     [Date]   timestamp   NOT NULL,
 )
 
@@ -93,22 +93,22 @@ ALTER TABLE [Classes]
 ALTER TABLE [Classes]
     CHECK CONSTRAINT [FK_Classes_TeacherID]
 
-ALTER TABLE [StudentIDs]
-    WITH CHECK ADD CONSTRAINT [FK_StudentIDs_StudentID] FOREIGN KEY ([StudentID])
+ALTER TABLE [Students]
+    WITH CHECK ADD CONSTRAINT [FK_StudentID_StudentID] FOREIGN KEY ([StudentID])
         REFERENCES [users] ([ID])
 
-ALTER TABLE [StudentIDs]
-    CHECK CONSTRAINT [FK_StudentIDs_StudentID]
+ALTER TABLE [Students]
+    CHECK CONSTRAINT [FK_StudentID_StudentID]
 
-ALTER TABLE [StudentIDs]
-    WITH CHECK ADD CONSTRAINT [FK_StudentIDs_Class] FOREIGN KEY ([Class])
+ALTER TABLE [Students]
+    WITH CHECK ADD CONSTRAINT [FK_Students_Class] FOREIGN KEY ([ClassID])
         REFERENCES [Classes] ([ID])
 
-ALTER TABLE [StudentIDs]
-    CHECK CONSTRAINT [FK_StudentIDs_Class]
+ALTER TABLE [Students]
+    CHECK CONSTRAINT [FK_Students_Class]
 
 ALTER TABLE [Lessons]
-    WITH CHECK ADD CONSTRAINT [FK_Lessons_Class] FOREIGN KEY ([Class])
+    WITH CHECK ADD CONSTRAINT [FK_Lessons_Class] FOREIGN KEY ([ClassID])
         REFERENCES [Classes] ([ID])
 
 ALTER TABLE [Lessons]
@@ -173,15 +173,15 @@ VALUES ('Mathematics', 3),
        ('Physics', 3),
        ('Biology', 4);
 
--- Insert StudentIDs
-INSERT INTO StudentIDs (StudentID, Class)
+-- Insert Students
+INSERT INTO Students (StudentID, ClassID)
 VALUES (1, 1),
        (1, 2),
        (2, 1),
        (2, 2);
 
 -- Insert Lessons
-INSERT INTO Lessons (Class, Number, Date)
+INSERT INTO Lessons (ClassID, Name, Date)
 VALUES (1, 'Lesson 1', DEFAULT),
        (1, 'Lesson 2', DEFAULT),
        (2, 'Lesson 1', DEFAULT),

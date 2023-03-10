@@ -13,7 +13,7 @@ public class AutoMapperConfiguration : Profile
         CreateMap<Grade, GradeDTO>().ReverseMap();
         CreateMap<Lesson, LessonDTO>().ReverseMap();
         CreateMap<Student, StudentDTO>().ReverseMap();
-        CreateMap<TypesOfState, TypesOfStateDTO>().ReverseMap();
+        CreateMap<AttendanceState, AttendanceStateDTO>().ReverseMap();
         CreateMap<TypesOfUser, TypesOfUserDTO>().ReverseMap();
         CreateMap<User, UserDTO>().ReverseMap();
     }

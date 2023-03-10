@@ -4,18 +4,15 @@ namespace BackEnd.DTOs;
 
 public class AttendanceDTO
 {
-    public int Id { get; set; }
+    [Required(ErrorMessage = "Attendance date is required.")]
+    public DateTime AttendanceDate { get; set; }
 
-    [Required(ErrorMessage = "The Lessons field is required.")]
-    public int Lessons { get; set; }
+    [Required(ErrorMessage = "Student ID is required.")]
+    public int StudentId { get; set; }
 
-    [Required(ErrorMessage = "The Student field is required.")]
-    public int Student { get; set; }
+    [Required(ErrorMessage = "Class ID is required.")]
+    public int ClassId { get; set; }
 
-    [Required(ErrorMessage = "The State field is required.")]
-    public int State { get; set; }
-
-    public virtual LessonDTO LessonsNavigation { get; set; }
-    public virtual TypesOfStateDTO StateNavigation { get; set; }
-    public virtual UserDTO StudentNavigation { get; set; }
+    [Required(ErrorMessage = "Attendance state is required.")]
+    public int AttendanceStateId { get; set; }
 }

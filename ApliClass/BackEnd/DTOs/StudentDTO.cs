@@ -6,7 +6,7 @@ public class StudentDTO
 {
     public int Id { get; set; }
 
-    [Required] public int StudentNumber { get; set; }
+    [Required] public int StudentId { get; set; }
 
     [Required] public int ClassId { get; set; }
 

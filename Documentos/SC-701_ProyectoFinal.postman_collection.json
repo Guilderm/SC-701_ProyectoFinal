@@ -1,0 +1,915 @@
+{
+	"info": {
+		"_postman_id": "15989180-7568-4f3e-941d-e4a05e09ad07",
+		"name": "SC-701_ProyectoFinal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11030552"
+	},
+	"item": [
+		{
+			"name": "Usuario | Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/User",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario |  Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Name\", \"NombreCreated\");\r",
+							"pm.collectionVariables.set(\"PrimerApellido\", \"PrimerApellidoCreated\");\r",
+							"pm.collectionVariables.set(\"SegundoApellido\", \"SegundoApellidoCreated\");\r",
+							"pm.collectionVariables.set(\"Email\", \"CorreoCreated_\" + Math.floor(Math.random() * 1000) + \"@coreo.com\");\r",
+							"pm.collectionVariables.set(\"UserType\", \"1\");\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"CreateRequestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"primerApellido\": pm.collectionVariables.get(\"PrimerApellido\"),\r",
+							"        \"SegundoApellido\": pm.collectionVariables.get(\"SegundoApellido\"),\r",
+							"        \"Email\": pm.collectionVariables.get(\"Email\"),\r",
+							"        \"UserType\": pm.collectionVariables.get(\"UserType\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(\"CreateRequestbody: \" + pm.collectionVariables.get(\"CreateRequestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"EntityID\", responseJson.id);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201(Created)\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is valid\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(typeof pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.be.a(\"number\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Collection Variables are set\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Nombre\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Correo\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"TipodeUsuario\")).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Nombre\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Correo\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"TipodeUsuario\")).to.not.equal(\"undefined\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"PrimerApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"SegundoApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Email is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"UserType is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{CreateRequestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/User",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario | Get new item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"//console.log(responseJson);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"PrimerApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"SegundoApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Email is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"UserType is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/User/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario | Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"PrimerApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"SegundoApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Email is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"UserType is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Name\", \"NombreUpdated\");\r",
+							"pm.collectionVariables.set(\"PrimerApellido\", \"PrimerApellidoUpdated\");\r",
+							"pm.collectionVariables.set(\"SegundoApellido\", \"SegundoApellidoUpdated\");\r",
+							"pm.collectionVariables.set(\"Email\", \"CorreoUpdated_\" + Math.floor(Math.random() * 1000) + \"@coreo.com\");\r",
+							"pm.collectionVariables.set(\"UserType\", \"2\");\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"UpdateRequestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"Id\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"primerApellido\": pm.collectionVariables.get(\"PrimerApellido\"),\r",
+							"        \"SegundoApellido\": pm.collectionVariables.get(\"SegundoApellido\"),\r",
+							"        \"Email\": pm.collectionVariables.get(\"Email\"),\r",
+							"        \"UserType\": pm.collectionVariables.get(\"UserType\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"UpdateRequestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{UpdateRequestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/User",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario | Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/User/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Usuario | Get No Content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204(OK)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/User/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attendance | Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Attendance",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Attendance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attendance |  Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Lesson\", \"1\");\r",
+							"pm.collectionVariables.set(\"Student\", \"1\");\r",
+							"pm.collectionVariables.set(\"State\", \"1\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"Lessons\": pm.collectionVariables.get(\"Lesson\"),\r",
+							"        \"Student\": pm.collectionVariables.get(\"Student\"),\r",
+							"        \"State\": pm.collectionVariables.get(\"State\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"EntityID\", responseJson.id);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201(Created)\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is valid\", function () {\r",
+							"    var EntityID = parseInt(responseJson.id);\r",
+							"    pm.expect(EntityID).to.not.be.null;\r",
+							"    pm.expect(typeof EntityID).to.not.equal(\"undefined\");\r",
+							"    pm.expect(EntityID).to.be.a(\"number\");\r",
+							"    pm.expect(EntityID).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Collection Variables are set\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"State\")).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.equal(\"undefined\");;\r",
+							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Lesson is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Lesson\"))).to.equal(parseInt(pm.response.json().lessons));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Student is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Student\"))).to.equal(parseInt(pm.response.json().student));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"State is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"State\"))).to.equal(pm.response.json().state);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Attendance",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Attendance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attendance| Get new item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"//console.log(responseJson);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Lesson is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Lesson\"))).to.equal(parseInt(pm.response.json().lessons));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Student is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Student\"))).to.equal(parseInt(pm.response.json().student));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"State is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"State\"))).to.equal(pm.response.json().state);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Attendance/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Attendance",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attendance | Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Lesson is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Lesson\"))).to.equal(parseInt(pm.response.json().lessons));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Student is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Student\"))).to.equal(parseInt(pm.response.json().student));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"State is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"State\"))).to.equal(pm.response.json().state);\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Lesson\", \"2\");\r",
+							"pm.collectionVariables.set(\"Student\", \"2\");\r",
+							"pm.collectionVariables.set(\"State\", \"2\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"Lessons\": pm.collectionVariables.get(\"Lesson\"),\r",
+							"        \"Student\": pm.collectionVariables.get(\"Student\"),\r",
+							"        \"State\": pm.collectionVariables.get(\"State\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Attendance",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Attendance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attendance | Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Attendance/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Attendance",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Attendance | Get No Content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204(OK)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Attendance/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Attendance",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://localhost:5103",
+			"type": "string"
+		},
+		{
+			"key": "responseTimeLimit",
+			"value": "200",
+			"type": "string"
+		},
+		{
+			"key": "Name",
+			"value": ""
+		},
+		{
+			"key": "PrimerApellido",
+			"value": ""
+		},
+		{
+			"key": "SegundoApellido",
+			"value": ""
+		},
+		{
+			"key": "Email",
+			"value": ""
+		},
+		{
+			"key": "UserType",
+			"value": ""
+		},
+		{
+			"key": "requestbody",
+			"value": ""
+		},
+		{
+			"key": "EntityID",
+			"value": ""
+		},
+		{
+			"key": "UpdateRequestbody",
+			"value": ""
+		},
+		{
+			"key": "Lessons",
+			"value": ""
+		},
+		{
+			"key": "Student",
+			"value": ""
+		},
+		{
+			"key": "State",
+			"value": ""
+		},
+		{
+			"key": "Lesson",
+			"value": ""
+		},
+		{
+			"key": "CreateRequestbody",
+			"value": ""
+		}
+	]
+}

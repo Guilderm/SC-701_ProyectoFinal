@@ -480,15 +480,15 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.collectionVariables.set(\"Lesson\", \"1\");\r",
-							"pm.collectionVariables.set(\"Student\", \"1\");\r",
-							"pm.collectionVariables.set(\"State\", \"1\");\r",
+							"pm.collectionVariables.set(\"LessonId\", \"1\");\r",
+							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
+							"pm.collectionVariables.set(\"StateId\", \"1\");\r",
 							"\r",
 							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
 							"    {\r",
-							"        \"Lessons\": pm.collectionVariables.get(\"Lesson\"),\r",
-							"        \"Student\": pm.collectionVariables.get(\"Student\"),\r",
-							"        \"State\": pm.collectionVariables.get(\"State\"),\r",
+							"        \"LessonId\": pm.collectionVariables.get(\"LessonId\"),\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"StateId\": pm.collectionVariables.get(\"StateId\"),\r",
 							"    }))\r",
 							"\r",
 							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
@@ -532,20 +532,23 @@
 							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
 							"});\r",
 							"\r",
+							"\r",
+							"\r",
+							"\r",
 							"pm.test(\"Check if EntityID is correct\", function () {\r",
 							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Lesson is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Lesson\"))).to.equal(parseInt(pm.response.json().lessons));\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"LessonId\"))).to.equal(parseInt(pm.response.json().lessonId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Student is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Student\"))).to.equal(parseInt(pm.response.json().student));\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"State is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"State\"))).to.equal(pm.response.json().state);\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StateId\"))).to.equal(pm.response.json().stateId);\r",
 							"    });\r",
 							""
 						],
@@ -607,20 +610,22 @@
 							"});\r",
 							"\r",
 							"\r",
+							"\r",
+							"\r",
 							"pm.test(\"Check if EntityID is correct\", function () {\r",
 							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Lesson is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Lesson\"))).to.equal(parseInt(pm.response.json().lessons));\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"LessonId\"))).to.equal(parseInt(pm.response.json().lessonId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Student is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Student\"))).to.equal(parseInt(pm.response.json().student));\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"State is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"State\"))).to.equal(pm.response.json().state);\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StateId\"))).to.equal(pm.response.json().stateId);\r",
 							"    });\r",
 							""
 						],
@@ -663,22 +668,24 @@
 							"    pm.response.to.have.status(200);\r",
 							"    });\r",
 							"\r",
+							"\r",
+							"\r",
+							"\r",
 							"pm.test(\"Check if EntityID is correct\", function () {\r",
 							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Lesson is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Lesson\"))).to.equal(parseInt(pm.response.json().lessons));\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"LessonId\"))).to.equal(parseInt(pm.response.json().lessonId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Student is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Student\"))).to.equal(parseInt(pm.response.json().student));\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"State is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"State\"))).to.equal(pm.response.json().state);\r",
-							"    });\r",
-							""
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StateId\"))).to.equal(pm.response.json().stateId);\r",
+							"    });"
 						],
 						"type": "text/javascript"
 					}
@@ -687,16 +694,16 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.collectionVariables.set(\"Lesson\", \"2\");\r",
-							"pm.collectionVariables.set(\"Student\", \"2\");\r",
-							"pm.collectionVariables.set(\"State\", \"2\");\r",
+							"pm.collectionVariables.set(\"LessonId\", \"2\");\r",
+							"pm.collectionVariables.set(\"StudentId\", \"2\");\r",
+							"pm.collectionVariables.set(\"StateId\", \"2\");\r",
 							"\r",
 							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
 							"    {\r",
-							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
-							"        \"Lessons\": pm.collectionVariables.get(\"Lesson\"),\r",
-							"        \"Student\": pm.collectionVariables.get(\"Student\"),\r",
-							"        \"State\": pm.collectionVariables.get(\"State\"),\r",
+							"          \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"          \"LessonId\": pm.collectionVariables.get(\"LessonId\"),\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"StateId\": pm.collectionVariables.get(\"StateId\"),\r",
 							"    }))\r",
 							"\r",
 							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
@@ -826,6 +833,1619 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Class | Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Class",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Class |  Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Name\", \"CreatedName\");\r",
+							"pm.collectionVariables.set(\"TeacherId\", \"1\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"TeacherId\": pm.collectionVariables.get(\"TeacherId\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"EntityID\", responseJson.id);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201(Created)\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is valid\", function () {\r",
+							"    var EntityID = parseInt(responseJson.id);\r",
+							"    pm.expect(EntityID).to.not.be.null;\r",
+							"    pm.expect(typeof EntityID).to.not.equal(\"undefined\");\r",
+							"    pm.expect(EntityID).to.be.a(\"number\");\r",
+							"    pm.expect(EntityID).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Collection Variables are set\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"State\")).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.equal(\"undefined\");;\r",
+							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Teacher is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"TeacherId\"))).to.equal(parseInt(pm.response.json().teacherId));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Class",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Class | Get new item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"//console.log(responseJson);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Teacher is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"TeacherId\"))).to.equal(parseInt(pm.response.json().teacherId));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Class/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Class",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Class | Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Teacher ID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"TeacherId\"))).to.equal(parseInt(pm.response.json().teacherId));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Name\", \"UpdateName\");\r",
+							"pm.collectionVariables.set(\"TeacherId\", \"2\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"TeacherId\": pm.collectionVariables.get(\"TeacherId\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Class",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Class"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Class | Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Class/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Class",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Class | Get No Content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204(OK)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Attendance/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Attendance",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assessment | Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Assessment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Assessment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assessment |  Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"pm.collectionVariables.set(\"Name\", \"CreatedName\");\r",
+							"pm.collectionVariables.set(\"Grade\", \"75\");\r",
+							"pm.collectionVariables.set(\"Percentage\", \"75\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"Grade\": pm.collectionVariables.get(\"Grade\"),\r",
+							"        \"Percentage\": pm.collectionVariables.get(\"Percentage\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"EntityID\", responseJson.id);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201(Created)\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is valid\", function () {\r",
+							"    var EntityID = parseInt(responseJson.id);\r",
+							"    pm.expect(EntityID).to.not.be.null;\r",
+							"    pm.expect(typeof EntityID).to.not.equal(\"undefined\");\r",
+							"    pm.expect(EntityID).to.be.a(\"number\");\r",
+							"    pm.expect(EntityID).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Collection Variables are set\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"State\")).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.equal(\"undefined\");;\r",
+							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Grade is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Percentage is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Assessment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Assessment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assessment | Get new item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"//console.log(responseJson);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Grade is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Percentage is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Assessment/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Assessment",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assessment | Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Grade is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Percentage is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"pm.collectionVariables.set(\"Name\", \"UpdatedName\");\r",
+							"pm.collectionVariables.set(\"Grade\", \"75\");\r",
+							"pm.collectionVariables.set(\"Percentage\", \"75\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"Grade\": pm.collectionVariables.get(\"Grade\"),\r",
+							"        \"Percentage\": pm.collectionVariables.get(\"Percentage\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Assessment",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Assessment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assessment | Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Assessment/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Assessment",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Assessment | Get No Content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204(OK)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Assessment/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Assessment",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lesson | Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Lesson",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Lesson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lesson  |  Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"pm.collectionVariables.set(\"Name\", \"CreatedName\");\r",
+							"pm.collectionVariables.set(\"Date\", \"2023-01-01T01:11:11\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"Date\": pm.collectionVariables.get(\"Date\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"EntityID\", responseJson.id);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201(Created)\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is valid\", function () {\r",
+							"    var EntityID = parseInt(responseJson.id);\r",
+							"    pm.expect(EntityID).to.not.be.null;\r",
+							"    pm.expect(typeof EntityID).to.not.equal(\"undefined\");\r",
+							"    pm.expect(EntityID).to.be.a(\"number\");\r",
+							"    pm.expect(EntityID).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Collection Variables are set\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"State\")).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.equal(\"undefined\");;\r",
+							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Date is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Date\")).to.equal(pm.response.json().date);\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Lesson",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Lesson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lesson | Get new item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(pm.response.json().id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Date is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Date\")).to.equal(pm.response.json().date);\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Lesson/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Lesson",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lesson | Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Date is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Date\")).to.equal(pm.response.json().date);\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"pm.collectionVariables.set(\"Name\", \"CreatedName\");\r",
+							"pm.collectionVariables.set(\"Date\", \"2023-02-02T02:22:22\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"Date\": pm.collectionVariables.get(\"Date\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Lesson",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Lesson"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lesson | Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Lesson/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Lesson",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lesson | Get No Content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204(OK)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Lesson/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Lesson",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student | Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Student",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student |  Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//var responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"EntityID\", pm.response.json().id);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201(Created)\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is valid\", function () {\r",
+							"    var EntityID = parseInt(pm.response.json().id);\r",
+							"    pm.expect(EntityID).to.not.be.null;\r",
+							"    pm.expect(typeof EntityID).to.not.equal(\"undefined\");\r",
+							"    pm.expect(EntityID).to.be.a(\"number\");\r",
+							"    pm.expect(EntityID).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Collection Variables are set\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"State\")).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.equal(\"undefined\");;\r",
+							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(pm.response.json().id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Student",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student | Get new item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"//console.log(responseJson);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(pm.response.json().id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Student/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Student",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student | Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(pm.response.json().id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"pm.collectionVariables.set(\"Name\", \"UpdatedName\");\r",
+							"pm.collectionVariables.set(\"Grade\", \"75\");\r",
+							"pm.collectionVariables.set(\"Percentage\", \"75\");\r",
+							"\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"Grade\": pm.collectionVariables.get(\"Grade\"),\r",
+							"        \"Percentage\": pm.collectionVariables.get(\"Percentage\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{requestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Student",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Student"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student | Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/Student/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Student",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Student | Get No Content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204(OK)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/Student/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"Student",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -856,11 +2476,39 @@
 		},
 		{
 			"key": "responseTimeLimit",
-			"value": "200",
+			"value": "750",
 			"type": "string"
 		},
 		{
+			"key": "ClassId",
+			"value": ""
+		},
+		{
 			"key": "Name",
+			"value": ""
+		},
+		{
+			"key": "Date",
+			"value": ""
+		},
+		{
+			"key": "requestbody",
+			"value": ""
+		},
+		{
+			"key": "EntityID",
+			"value": ""
+		},
+		{
+			"key": "StudentId",
+			"value": ""
+		},
+		{
+			"key": "Grade",
+			"value": ""
+		},
+		{
+			"key": "Percentage",
 			"value": ""
 		},
 		{
@@ -880,11 +2528,7 @@
 			"value": ""
 		},
 		{
-			"key": "requestbody",
-			"value": ""
-		},
-		{
-			"key": "EntityID",
+			"key": "CreateRequestbody",
 			"value": ""
 		},
 		{
@@ -892,23 +2536,15 @@
 			"value": ""
 		},
 		{
-			"key": "Lessons",
+			"key": "LessonId",
 			"value": ""
 		},
 		{
-			"key": "Student",
+			"key": "StateId",
 			"value": ""
 		},
 		{
-			"key": "State",
-			"value": ""
-		},
-		{
-			"key": "Lesson",
-			"value": ""
-		},
-		{
-			"key": "CreateRequestbody",
+			"key": "TeacherId",
 			"value": ""
 		}
 	]

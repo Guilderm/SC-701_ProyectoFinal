@@ -130,10 +130,7 @@ namespace Entities
 
                 entity.Property(e => e.ClassId).HasColumnName("ClassID");
 
-                entity.Property(e => e.Date)
-                    .IsRequired()
-                    .IsRowVersion()
-                    .IsConcurrencyToken();
+                entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.Name)
                     .HasMaxLength(50)

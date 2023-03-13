@@ -46,7 +46,7 @@ CREATE TABLE [Lessons]
     [ID]      INT IDENTITY (1,1) PRIMARY KEY,
     [ClassID] int         NOT NULL,
     [Name]    varchar(50) NULL,
-    [Date]    timestamp   NOT NULL,
+    [Date]    datetime  NOT NULL,
 )
 
 CREATE TABLE [Attendance]

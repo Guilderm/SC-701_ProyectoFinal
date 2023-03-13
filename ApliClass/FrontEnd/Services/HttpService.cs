@@ -6,7 +6,7 @@ public class HttpService
 {
     private readonly HttpClient _client = new()
     {
-        BaseAddress = new Uri(JObject.Parse(File.ReadAllText("appsettings.json"))["BackendURLs"]["baseUrl"].ToString())
+        BaseAddress = new Uri(JObject.Parse(File.ReadAllText("appsettings.json"))["BackendURLs"]["BaseUrl"].ToString())
     };
 
     public HttpResponseMessage GetResponse(string url)

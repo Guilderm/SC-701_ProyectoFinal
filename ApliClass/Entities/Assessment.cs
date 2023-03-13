@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Entities;
 
-namespace Entities
+public class Assessment
 {
-    public partial class Assessment
-    {
-        public int Id { get; set; }
-        public int StudentId { get; set; }
-        public int ClassId { get; set; }
-        public string Name { get; set; }
-        public double Grade { get; set; }
-        public double Percentage { get; set; }
+    public int Id { get; set; }
+    public int StudentId { get; set; }
+    public int ClassId { get; set; }
+    public string Name { get; set; }
+    public double Grade { get; set; }
+    public double Percentage { get; set; }
 
-        public virtual Class Class { get; set; }
-        public virtual User Student { get; set; }
-    }
+    public virtual Class Class { get; set; }
+    public virtual User Student { get; set; }
 }

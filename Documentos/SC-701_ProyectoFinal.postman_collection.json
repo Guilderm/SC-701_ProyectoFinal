@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Usuario | Get All",
+			"name": "Assessment | Get All",
 			"event": [
 				{
 					"listen": "test",
@@ -34,42 +34,41 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/User",
+					"raw": "{{url}}/api/Assessment",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"User"
+						"Assessment"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Usuario |  Create",
+			"name": "Assessment |  Create",
 			"event": [
 				{
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.collectionVariables.set(\"Name\", \"NombreCreated\");\r",
-							"pm.collectionVariables.set(\"PrimerApellido\", \"PrimerApellidoCreated\");\r",
-							"pm.collectionVariables.set(\"SegundoApellido\", \"SegundoApellidoCreated\");\r",
-							"pm.collectionVariables.set(\"Email\", \"CorreoCreated_\" + Math.floor(Math.random() * 1000) + \"@coreo.com\");\r",
-							"pm.collectionVariables.set(\"UserType\", \"1\");\r",
+							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"pm.collectionVariables.set(\"Name\", \"CreatedName\");\r",
+							"pm.collectionVariables.set(\"Grade\", \"75\");\r",
+							"pm.collectionVariables.set(\"Percentage\", \"75\");\r",
 							"\r",
-							"\r",
-							"pm.collectionVariables.set(\"CreateRequestbody\", JSON.stringify(\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
 							"    {\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
 							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
-							"        \"primerApellido\": pm.collectionVariables.get(\"PrimerApellido\"),\r",
-							"        \"SegundoApellido\": pm.collectionVariables.get(\"SegundoApellido\"),\r",
-							"        \"Email\": pm.collectionVariables.get(\"Email\"),\r",
-							"        \"UserType\": pm.collectionVariables.get(\"UserType\"),\r",
+							"        \"Grade\": pm.collectionVariables.get(\"Grade\"),\r",
+							"        \"Percentage\": pm.collectionVariables.get(\"Percentage\"),\r",
 							"    }))\r",
 							"\r",
-							"//console.log(\"CreateRequestbody: \" + pm.collectionVariables.get(\"CreateRequestbody\"));"
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -91,50 +90,51 @@
 							"});\r",
 							"\r",
 							"pm.test(\"ID is valid\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
-							"    pm.expect(typeof pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.be.a(\"number\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.be.above(1);\r",
+							"    var EntityID = parseInt(responseJson.id);\r",
+							"    pm.expect(EntityID).to.not.be.null;\r",
+							"    pm.expect(typeof EntityID).to.not.equal(\"undefined\");\r",
+							"    pm.expect(EntityID).to.be.a(\"number\");\r",
+							"    pm.expect(EntityID).to.be.above(1);\r",
 							"});\r",
 							"\r",
 							"pm.test(\"Collection Variables are set\", function () {\r",
 							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"Nombre\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"Correo\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"TipodeUsuario\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"State\")).to.not.be.null;\r",
 							"\r",
 							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"Nombre\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"Correo\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"TipodeUsuario\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.equal(\"undefined\");;\r",
+							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
 							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
 							"\r",
 							"pm.test(\"Check if EntityID is correct\", function () {\r",
 							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Name is correct\", function () {\r",
 							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
 							"    });\r",
 							"\r",
-							"pm.test(\"PrimerApellido is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"pm.test(\"Grade is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
 							"    });\r",
 							"\r",
-							"pm.test(\"SegundoApellido is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Email is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"UserType is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"pm.test(\"Percentage is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
 							"    });"
 						],
 						"type": "text/javascript"
@@ -146,7 +146,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{{CreateRequestbody}}",
+					"raw": "{{requestbody}}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -154,20 +154,20 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/api/User",
+					"raw": "{{url}}/api/Assessment",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"User"
+						"Assessment"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Usuario | Get new item",
+			"name": "Assessment | Get new item",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -194,28 +194,34 @@
 							"    pm.response.to.have.status(200);\r",
 							"});\r",
 							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
 							"pm.test(\"Check if EntityID is correct\", function () {\r",
 							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Name is correct\", function () {\r",
 							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
 							"    });\r",
 							"\r",
-							"pm.test(\"PrimerApellido is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"pm.test(\"Grade is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
 							"    });\r",
 							"\r",
-							"pm.test(\"SegundoApellido is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Email is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"UserType is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"pm.test(\"Percentage is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
 							"    });"
 						],
 						"type": "text/javascript"
@@ -226,13 +232,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/User/{{EntityID}}",
+					"raw": "{{url}}/api/Assessment/{{EntityID}}",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"User",
+						"Assessment",
 						"{{EntityID}}"
 					]
 				}
@@ -240,7 +246,7 @@
 			"response": []
 		},
 		{
-			"name": "Usuario | Update",
+			"name": "Assessment | Update",
 			"event": [
 				{
 					"listen": "test",
@@ -257,28 +263,36 @@
 							"    pm.response.to.have.status(200);\r",
 							"    });\r",
 							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
+							"\r",
 							"pm.test(\"Check if EntityID is correct\", function () {\r",
 							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"    \r",
+							"pm.test(\"StudentId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"ClassId is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
 							"    });\r",
 							"\r",
 							"pm.test(\"Name is correct\", function () {\r",
 							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
 							"    });\r",
 							"\r",
-							"pm.test(\"PrimerApellido is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"pm.test(\"Grade is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
 							"    });\r",
 							"\r",
-							"pm.test(\"SegundoApellido is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Email is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"UserType is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"pm.test(\"Percentage is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
 							"    });"
 						],
 						"type": "text/javascript"
@@ -288,24 +302,23 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
-							"pm.collectionVariables.set(\"Name\", \"NombreUpdated\");\r",
-							"pm.collectionVariables.set(\"PrimerApellido\", \"PrimerApellidoUpdated\");\r",
-							"pm.collectionVariables.set(\"SegundoApellido\", \"SegundoApellidoUpdated\");\r",
-							"pm.collectionVariables.set(\"Email\", \"CorreoUpdated_\" + Math.floor(Math.random() * 1000) + \"@coreo.com\");\r",
-							"pm.collectionVariables.set(\"UserType\", \"2\");\r",
+							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
+							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
+							"pm.collectionVariables.set(\"Name\", \"UpdatedName\");\r",
+							"pm.collectionVariables.set(\"Grade\", \"75\");\r",
+							"pm.collectionVariables.set(\"Percentage\", \"75\");\r",
 							"\r",
-							"\r",
-							"pm.collectionVariables.set(\"UpdateRequestbody\", JSON.stringify(\r",
+							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
 							"    {\r",
-							"        \"Id\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
+							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
 							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
-							"        \"primerApellido\": pm.collectionVariables.get(\"PrimerApellido\"),\r",
-							"        \"SegundoApellido\": pm.collectionVariables.get(\"SegundoApellido\"),\r",
-							"        \"Email\": pm.collectionVariables.get(\"Email\"),\r",
-							"        \"UserType\": pm.collectionVariables.get(\"UserType\"),\r",
+							"        \"Grade\": pm.collectionVariables.get(\"Grade\"),\r",
+							"        \"Percentage\": pm.collectionVariables.get(\"Percentage\"),\r",
 							"    }))\r",
 							"\r",
-							"//console.log(pm.collectionVariables.get(\"UpdateRequestbody\"));"
+							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
 						],
 						"type": "text/javascript"
 					}
@@ -316,7 +329,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{{UpdateRequestbody}}",
+					"raw": "{{requestbody}}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -324,20 +337,20 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/api/User",
+					"raw": "{{url}}/api/Assessment",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"User"
+						"Assessment"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Usuario | Delete",
+			"name": "Assessment | Delete",
 			"event": [
 				{
 					"listen": "test",
@@ -373,13 +386,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{url}}/api/User/{{EntityID}}",
+					"raw": "{{url}}/api/Assessment/{{EntityID}}",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"User",
+						"Assessment",
 						"{{EntityID}}"
 					]
 				}
@@ -387,7 +400,7 @@
 			"response": []
 		},
 		{
-			"name": "Usuario | Get No Content",
+			"name": "Assessment | Get No Content",
 			"event": [
 				{
 					"listen": "prerequest",
@@ -420,13 +433,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{url}}/api/User/{{EntityID}}",
+					"raw": "{{url}}/api/Assessment/{{EntityID}}",
 					"host": [
 						"{{url}}"
 					],
 					"path": [
 						"api",
-						"User",
+						"Assessment",
 						"{{EntityID}}"
 					]
 				}
@@ -1209,446 +1222,6 @@
 					"path": [
 						"api",
 						"Attendance",
-						"{{EntityID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Assessment | Get All",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response time is Appropriate\", function () {\r",
-							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response is an array\", function () {\r",
-							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/Assessment",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"Assessment"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Assessment |  Create",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
-							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
-							"pm.collectionVariables.set(\"Name\", \"CreatedName\");\r",
-							"pm.collectionVariables.set(\"Grade\", \"75\");\r",
-							"pm.collectionVariables.set(\"Percentage\", \"75\");\r",
-							"\r",
-							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
-							"    {\r",
-							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
-							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
-							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
-							"        \"Grade\": pm.collectionVariables.get(\"Grade\"),\r",
-							"        \"Percentage\": pm.collectionVariables.get(\"Percentage\"),\r",
-							"    }))\r",
-							"\r",
-							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var responseJson = pm.response.json();\r",
-							"pm.collectionVariables.set(\"EntityID\", responseJson.id);\r",
-							"\r",
-							"pm.test(\"Response time is Appropriate\", function () {\r",
-							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 201(Created)\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"ID is valid\", function () {\r",
-							"    var EntityID = parseInt(responseJson.id);\r",
-							"    pm.expect(EntityID).to.not.be.null;\r",
-							"    pm.expect(typeof EntityID).to.not.equal(\"undefined\");\r",
-							"    pm.expect(EntityID).to.be.a(\"number\");\r",
-							"    pm.expect(EntityID).to.be.above(1);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Collection Variables are set\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.be.null;\r",
-							"    pm.expect(pm.collectionVariables.get(\"State\")).to.not.be.null;\r",
-							"\r",
-							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"Lesson\")).to.not.equal(\"undefined\");\r",
-							"    pm.expect(pm.collectionVariables.get(\"Student\")).to.not.equal(\"undefined\");;\r",
-							"        pm.expect(pm.collectionVariables.get(\"State\")).to.not.equal(\"undefined\");;\r",
-							"});\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"pm.test(\"Check if EntityID is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
-							"    });\r",
-							"    \r",
-							"pm.test(\"StudentId is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"ClassId is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Name is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Grade is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Percentage is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
-							"    });"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{{requestbody}}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/api/Assessment",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"Assessment"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Assessment | Get new item",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var responseJson = pm.response.json();\r",
-							"//console.log(responseJson);\r",
-							"\r",
-							"pm.test(\"Response time is Appropriate\", function () {\r",
-							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200(OK)\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"pm.test(\"Check if EntityID is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
-							"    });\r",
-							"    \r",
-							"pm.test(\"StudentId is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"ClassId is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Name is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Grade is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Percentage is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
-							"    });"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/Assessment/{{EntityID}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"Assessment",
-						"{{EntityID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Assessment | Update",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"var responseJson = pm.response.json();\r",
-							"\r",
-							"pm.test(\"Response time is Appropriate\", function () {\r",
-							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 200(OK)\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"    });\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"\r",
-							"pm.test(\"Check if EntityID is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
-							"    });\r",
-							"    \r",
-							"pm.test(\"StudentId is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"StudentId\"))).to.equal(parseInt(pm.response.json().studentId));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"ClassId is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"ClassId\"))).to.equal(parseInt(pm.response.json().classId));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Name is correct\", function () {\r",
-							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Grade is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Grade\"))).to.equal(parseInt(pm.response.json().grade));\r",
-							"    });\r",
-							"\r",
-							"pm.test(\"Percentage is correct\", function () {\r",
-							"    pm.expect(parseInt(pm.collectionVariables.get(\"Percentage\"))).to.equal(parseInt(pm.response.json().percentage));\r",
-							"    });"
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							"pm.collectionVariables.set(\"StudentId\", \"1\");\r",
-							"pm.collectionVariables.set(\"ClassId\", \"1\");\r",
-							"pm.collectionVariables.set(\"Name\", \"UpdatedName\");\r",
-							"pm.collectionVariables.set(\"Grade\", \"75\");\r",
-							"pm.collectionVariables.set(\"Percentage\", \"75\");\r",
-							"\r",
-							"pm.collectionVariables.set(\"requestbody\", JSON.stringify(\r",
-							"    {\r",
-							"        \"ID\": pm.collectionVariables.get(\"EntityID\"),\r",
-							"        \"StudentId\": pm.collectionVariables.get(\"StudentId\"),\r",
-							"        \"ClassId\": pm.collectionVariables.get(\"ClassId\"),\r",
-							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
-							"        \"Grade\": pm.collectionVariables.get(\"Grade\"),\r",
-							"        \"Percentage\": pm.collectionVariables.get(\"Percentage\"),\r",
-							"    }))\r",
-							"\r",
-							"//console.log(pm.collectionVariables.get(\"requestbody\"));"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{{requestbody}}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/api/Assessment",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"Assessment"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Assessment | Delete",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response time is Appropriate\", function () {\r",
-							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
-							"    pm.response.to.have.status(204);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Response body is empty\", function () {\r",
-							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/api/Assessment/{{EntityID}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"Assessment",
-						"{{EntityID}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Assessment | Get No Content",
-			"event": [
-				{
-					"listen": "prerequest",
-					"script": {
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				},
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Response time is Appropriate\", function () {\r",
-							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
-							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Status code is 204(OK)\", function () {\r",
-							"    pm.response.to.have.status(204);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/api/Assessment/{{EntityID}}",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"api",
-						"Assessment",
 						"{{EntityID}}"
 					]
 				}
@@ -2441,6 +2014,433 @@
 					"path": [
 						"api",
 						"Student",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User | Get All",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response is an array\", function () {\r",
+							"    pm.expect(Array.isArray(pm.response.json())).to.be.true;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/User",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User |  Create",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Name\", \"NombreCreated\");\r",
+							"pm.collectionVariables.set(\"PrimerApellido\", \"PrimerApellidoCreated\");\r",
+							"pm.collectionVariables.set(\"SegundoApellido\", \"SegundoApellidoCreated\");\r",
+							"pm.collectionVariables.set(\"Email\", \"CorreoCreated_\" + Math.floor(Math.random() * 1000) + \"@coreo.com\");\r",
+							"pm.collectionVariables.set(\"UserType\", \"1\");\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"CreateRequestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"primerApellido\": pm.collectionVariables.get(\"PrimerApellido\"),\r",
+							"        \"SegundoApellido\": pm.collectionVariables.get(\"SegundoApellido\"),\r",
+							"        \"Email\": pm.collectionVariables.get(\"Email\"),\r",
+							"        \"UserType\": pm.collectionVariables.get(\"UserType\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(\"CreateRequestbody: \" + pm.collectionVariables.get(\"CreateRequestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"pm.collectionVariables.set(\"EntityID\", responseJson.id);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 201(Created)\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"ID is valid\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(typeof pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.be.a(\"number\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.be.above(1);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Collection Variables are set\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Nombre\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"Correo\")).to.not.be.null;\r",
+							"    pm.expect(pm.collectionVariables.get(\"TipodeUsuario\")).to.not.be.null;\r",
+							"\r",
+							"    pm.expect(pm.collectionVariables.get(\"EntityID\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Nombre\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"Correo\")).to.not.equal(\"undefined\");\r",
+							"    pm.expect(pm.collectionVariables.get(\"TipodeUsuario\")).to.not.equal(\"undefined\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"PrimerApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"SegundoApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Email is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"UserType is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{CreateRequestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/User",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User | Get new item",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"//console.log(responseJson);\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"PrimerApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"SegundoApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Email is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"UserType is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/User/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User | Update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var responseJson = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 200(OK)\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Check if EntityID is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"EntityID\"))).to.equal(parseInt(responseJson.id));\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Name is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Name\")).to.equal(pm.response.json().name);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"PrimerApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"PrimerApellido\")).to.equal(pm.response.json().primerApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"SegundoApellido is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"SegundoApellido\")).to.equal(pm.response.json().segundoApellido);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"Email is correct\", function () {\r",
+							"    pm.expect(pm.collectionVariables.get(\"Email\")).to.equal(pm.response.json().email);\r",
+							"    });\r",
+							"\r",
+							"pm.test(\"UserType is correct\", function () {\r",
+							"    pm.expect(parseInt(pm.collectionVariables.get(\"UserType\"))).to.equal(parseInt(responseJson.userType));\r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"Name\", \"NombreUpdated\");\r",
+							"pm.collectionVariables.set(\"PrimerApellido\", \"PrimerApellidoUpdated\");\r",
+							"pm.collectionVariables.set(\"SegundoApellido\", \"SegundoApellidoUpdated\");\r",
+							"pm.collectionVariables.set(\"Email\", \"CorreoUpdated_\" + Math.floor(Math.random() * 1000) + \"@coreo.com\");\r",
+							"pm.collectionVariables.set(\"UserType\", \"2\");\r",
+							"\r",
+							"\r",
+							"pm.collectionVariables.set(\"UpdateRequestbody\", JSON.stringify(\r",
+							"    {\r",
+							"        \"Id\": pm.collectionVariables.get(\"EntityID\"),\r",
+							"        \"Name\": pm.collectionVariables.get(\"Name\"),\r",
+							"        \"primerApellido\": pm.collectionVariables.get(\"PrimerApellido\"),\r",
+							"        \"SegundoApellido\": pm.collectionVariables.get(\"SegundoApellido\"),\r",
+							"        \"Email\": pm.collectionVariables.get(\"Email\"),\r",
+							"        \"UserType\": pm.collectionVariables.get(\"UserType\"),\r",
+							"    }))\r",
+							"\r",
+							"//console.log(pm.collectionVariables.get(\"UpdateRequestbody\"));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{UpdateRequestbody}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/User",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User | Delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204 (No Content)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response body is empty\", function () {\r",
+							"    pm.expect(pm.response.text().trim()).to.equal(\"\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryId\": 24,\r\n    \"categoryName\": \"Modifyed\",\r\n    \"description\": \"Modifyed\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/User/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
+						"{{EntityID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "User | Get No Content",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response time is Appropriate\", function () {\r",
+							"    const responseTimeLimit = Number(pm.collectionVariables.get(\"responseTimeLimit\"));\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(responseTimeLimit);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 204(OK)\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/api/User/{{EntityID}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"User",
 						"{{EntityID}}"
 					]
 				}

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Entities;
 
 namespace BackEnd.DTOs;
 
@@ -6,10 +7,13 @@ public class StudentDTO
 {
     public int Id { get; set; }
 
-    [Required] public int StudentId { get; set; }
+    [Required(ErrorMessage = "Student ID is required.")]
+    public int StudentId { get; set; }
 
-    [Required] public int ClassId { get; set; }
+    [Required(ErrorMessage = "Class ID is required.")]
+    public int ClassId { get; set; }
 
-    public ClassDTO Class { get; set; }
-    public UserDTO Student { get; set; }
+    public virtual Class Class { get; set; }
+
+    public virtual User StudentNavigation { get; set; }
 }

@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace Entities;
 
-namespace Entities
+public class Student
 {
-    public partial class Student
-    {
-        public int Id { get; set; }
-        public int StudentId { get; set; }
-        public int ClassId { get; set; }
+    public int Id { get; set; }
+    public int StudentId { get; set; }
+    public int ClassId { get; set; }
 
-        public virtual Class Class { get; set; }
-        public virtual User StudentNavigation { get; set; }
-    }
+    public virtual Class Class { get; set; }
+    public virtual User StudentNavigation { get; set; }
 }
